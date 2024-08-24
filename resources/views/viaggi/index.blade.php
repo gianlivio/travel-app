@@ -20,10 +20,13 @@
                 @foreach($viaggi as $viaggio)
                     <tr>
                         <td>{{ $viaggio->titolo }}</td>
-                        <td>{{ $viaggio->meta }}</td> <!-- Supponiamo che 'meta' sia un campo nel database -->
-                        <td>{{ $viaggio->durata }}</td> <!-- Supponiamo che 'durata' sia un campo nel database -->
-                        <td>{{ $viaggio->periodo }}</td> <!-- Supponiamo che 'periodo' sia un campo nel database -->
-                        <td>{{ $viaggio->descrizione }}</td> <!-- Puoi mostrare altre info o aggiungerne altre -->
+                        <td>{{ $viaggio->meta }}</td> 
+                        @if($viaggio->image)
+                        <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 100px; height: auto;">
+                        @endif
+                        <td>{{ $viaggio->durata }}</td> 
+                        <td>{{ $viaggio->periodo }}</td> 
+                        <td>{{ $viaggio->descrizione }}</td> 
                         <td>
                             <a href="{{ route('viaggi.show', $viaggio->id) }}" class="btn btn-info btn-sm">
                                 <i class="fas fa-eye"></i>

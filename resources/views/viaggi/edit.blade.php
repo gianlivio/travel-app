@@ -18,6 +18,16 @@
                 <textarea class="form-control" id="descrizione" name="descrizione" rows="3">{{ $viaggio->descrizione }}</textarea>
             </div>
 
+            <div class="mb-4">
+                <label for="image" class="form-label">Aggiorna Immagine</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                @if($viaggio->image)
+                    <img id="image-preview" src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Corrente" style="width: 200px; height: auto; margin-top: 10px;">
+                @else
+                    <img id="image-preview" src="#" alt="Anteprima Immagine" style="display:none; width: 200px; height: auto; margin-top: 10px;">
+                @endif
+            </div>
+
             <button type="submit" class="btn btn-primary">Aggiorna Viaggio</button>
         </form>
 

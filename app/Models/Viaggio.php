@@ -11,7 +11,7 @@ class Viaggio extends Model
 
     protected $table = 'viaggi'; 
 
-    protected $fillable = ['titolo', 'descrizione', 'user_id'];
+    protected $fillable = ['titolo', 'descrizione', 'user_id', 'image'];
 
     public function giornate()
     {

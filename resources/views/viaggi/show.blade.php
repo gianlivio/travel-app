@@ -56,6 +56,9 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
                             </form>
                         </div>
+                        @if($viaggio->image)
+                            <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+                        @endif
                     </li>
                 @endforeach
             </ul>

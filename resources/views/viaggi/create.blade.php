@@ -31,6 +31,12 @@
                 </ul>
             </div>
 
+            <div class="mb-4">
+                <label for="image" class="form-label">Carica Immagine</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                <img id="image-preview" src="#" alt="Anteprima Immagine" style="display:none; width: 200px; height: auto; margin-top: 10px;">
+            </div>
+
             <!-- Pulsanti di Azione -->
             <button type="submit" class="btn btn-primary">Salva Viaggio</button>
             <a href="{{ route('viaggi.index') }}" class="btn btn-secondary">Annulla</a>
@@ -39,6 +45,16 @@
 
     <script>
         const tappeList = document.getElementById('tappe-list');
+
+        function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('image-preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
         function addTappa() {
             const searchInput = document.getElementById('localita-search');

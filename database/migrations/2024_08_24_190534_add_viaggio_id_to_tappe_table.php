@@ -11,19 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tappe', function (Blueprint $table) {
-            $table->foreignId('viaggio_id')->constrained()->onDelete('cascade'); 
-        });
+        // Check if the column already exists
+        if (!Schema::hasColumn('tappe', 'viaggio_id')) {
+            Schema::table('tappe', function (Blueprint $table) {
+                $table->foreignId('viaggio_id')->constrained()->onDelete('cascade');
+            });
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('tappe', function (Blueprint $table) {
-            $table->dropForeign(['viaggio_id']);
-            $table->dropColumn('viaggio_id');
-        });
+        // Check if the column exists before trying to remove it
+        if (Schema::hasColumn('tappe', 'viaggio_id')) {
+            Schema::table('tappe', function (Blueprint $table) {
+                $table->dropForeign(['viaggio_id']);
+                $table->dropColumn('viaggio_id');
+            });
+        }
     }
 };
