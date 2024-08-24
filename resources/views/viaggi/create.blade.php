@@ -7,7 +7,7 @@
         <!-- Pulsante "Indietro" -->
         <a href="{{ route('viaggi.index') }}" class="btn btn-secondary mb-3">Indietro</a>
 
-        <form action="{{ route('viaggi.store') }}" method="POST">
+        <form action="{{ route('viaggi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="titolo" class="form-label">Titolo</label>
@@ -47,14 +47,14 @@
         const tappeList = document.getElementById('tappe-list');
 
         function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('image-preview');
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('image-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
         function addTappa() {
             const searchInput = document.getElementById('localita-search');

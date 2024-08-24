@@ -12,7 +12,15 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $viaggio->titolo }}</h5>
                 <p class="card-text">{{ $viaggio->descrizione }}</p>
-                <a href="{{ route('viaggi.edit', $viaggio->id) }}" class="btn btn-primary">Modifica Viaggio</a>
+                
+                <!-- Visualizzazione dell'immagine del viaggio -->
+                @if($viaggio->image)
+                    <div class="mb-3">
+                        <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+                    </div>
+                @endif
+
+               
             </div>
         </div>
 
@@ -56,9 +64,8 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
                             </form>
                         </div>
-                        @if($viaggio->image)
-                            <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
-                        @endif
+                        <!-- L'immagine della tappa potrebbe essere diversa o la stessa del viaggio -->
+                        <!-- Se si vuole mostrare un'immagine specifica della tappa, bisognerebbe cambiare la logica qui -->
                     </li>
                 @endforeach
             </ul>
@@ -66,5 +73,6 @@
 
         <!-- Pulsanti di Navigazione -->
         <a href="{{ route('viaggi.index') }}" class="btn btn-secondary">Torna alla lista dei viaggi</a>
+        <a href="{{ route('viaggi.edit', $viaggio->id) }}" class="btn btn-primary">Modifica Viaggio</a>
     </div>
 @endsection

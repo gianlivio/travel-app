@@ -21,9 +21,11 @@
                     <tr>
                         <td>{{ $viaggio->titolo }}</td>
                         <td>{{ $viaggio->meta }}</td> 
-                        @if($viaggio->image)
-                        <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 100px; height: auto;">
-                        @endif
+                        <td>
+                            @if($viaggio->image)
+                                <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 100px; height: auto;">
+                            @endif
+                        </td>
                         <td>{{ $viaggio->durata }}</td> 
                         <td>{{ $viaggio->periodo }}</td> 
                         <td>{{ $viaggio->descrizione }}</td> 

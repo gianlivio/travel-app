@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Viaggio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class ViaggioController extends Controller
 {
@@ -33,13 +35,18 @@ class ViaggioController extends Controller
         $request->validate([
             'titolo' => 'required|string|max:255',
             'descrizione' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
-
+    
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('viaggi_images', 'public');
+            try {
+                $imagePath = $request->file('image')->store('viaggi_images', 'public');
+            } catch (\Exception $e) {
+                return back()->withErrors(['image' => 'Errore nel caricamento dell\'immagine: ' . $e->getMessage()]);
+            }
         }
+    
 
         $viaggio = Viaggio::create([
             'titolo' => $request->input('titolo'),
@@ -62,7 +69,7 @@ class ViaggioController extends Controller
             }
         }
 
-        return redirect()->route('viaggi.show', $viaggio->id)->with('success', 'Viaggio creato con successo');
+        return redirect()->route('viaggi.index')->with('success', 'Viaggio creato con successo.');
     }
 
     /**
@@ -101,7 +108,7 @@ class ViaggioController extends Controller
         if ($request->hasFile('image')) {
             // Elimina l'immagine precedente se esiste
             if ($viaggio->image) {
-                \Storage::disk('public')->delete($viaggio->image);
+                Storage::disk('public')->delete($viaggio->image);
             }
             $imagePath = $request->file('image')->store('viaggi_images', 'public');
         }
@@ -113,7 +120,7 @@ class ViaggioController extends Controller
             'image' => $imagePath,
         ]);
 
-        // Aggiorna le giornate e tappe se fornite (da gestire con logica appropriata)
+        // Aggiorna le giornate e tappe se fornite
 
         return redirect()->route('viaggi.show', $viaggio->id)->with('success', 'Viaggio aggiornato con successo');
     }
@@ -126,7 +133,7 @@ class ViaggioController extends Controller
         $viaggio = Viaggio::findOrFail($id);
         // Elimina l'immagine associata
         if ($viaggio->image) {
-            \Storage::disk('public')->delete($viaggio->image);
+            Storage::disk('public')->delete($viaggio->image);
         }
         $viaggio->delete();
         return redirect()->route('viaggi.index')->with('success', 'Viaggio eliminato con successo');
