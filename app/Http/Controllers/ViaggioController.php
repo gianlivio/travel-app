@@ -34,14 +34,27 @@ class ViaggioController extends Controller
             'titolo' => 'required|string|max:255',
             'descrizione' => 'nullable|string',
         ]);
-
-        // Aggiungi l'ID dell'utente al nuovo viaggio
+    
         $viaggio = Viaggio::create([
             'titolo' => $request->titolo,
             'descrizione' => $request->descrizione,
-            'user_id' => Auth::id(), 
+            'user_id' => Auth::id(),
         ]);
-
+    
+        // Salva le giornate
+        if ($request->has('giornate')) {
+            foreach ($request->giornate as $giornataData) {
+                $viaggio->giornate()->create($giornataData);
+            }
+        }
+    
+        // Salva le tappe
+        if ($request->has('tappe')) {
+            foreach ($request->tappe as $tappaData) {
+                $viaggio->tappe()->create($tappaData);
+            }
+        }
+    
         return redirect()->route('viaggi.show', $viaggio->id)->with('success', 'Viaggio creato con successo');
     }
 
@@ -84,7 +97,8 @@ class ViaggioController extends Controller
      */
     public function destroy(string $id)
     {
+        $viaggio = Viaggio::findOrFail($id);    
         $viaggio->delete();
-        return response()->json(null, 204);
+        return redirect()->route('viaggi.index')->with('success', 'Viaggio eliminato con successo');
     }
 }

@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Giornata extends Model
-{
+{   
+    use HasFactory;
+
+    protected $table = 'giornate';
      // Definisci i campi che possono essere riempiti in massa
      protected $fillable = ['viaggio_id', 'data'];
 

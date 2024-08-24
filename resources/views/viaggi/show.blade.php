@@ -2,13 +2,66 @@
 
 @section('content')
     <div class="container">
-        <h1>Dettagli del Viaggio</h1>
-        <h2>{{ $viaggio->titolo }}</h2>
-        <p>{{ $viaggio->descrizione }}</p>
+        <h1 class="mb-4">{{ $viaggio->titolo }}</h1>
 
-        <!-- Puoi aggiungere qui ulteriori dettagli specifici per il viaggio -->
+        <!-- Dettagli del Viaggio -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Dettagli del Viaggio
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ $viaggio->titolo }}</h5>
+                <p class="card-text">{{ $viaggio->descrizione }}</p>
+                <a href="{{ route('viaggi.edit', $viaggio->id) }}" class="btn btn-primary">Modifica Viaggio</a>
+            </div>
+        </div>
 
-        <a href="{{ route('viaggi.index') }}" class="btn btn-secondary mt-3">Torna alla lista dei viaggi</a>
-        <a href="{{ route('viaggi.edit', $viaggio->id) }}" class="btn btn-primary mt-3">Modifica Viaggio</a>
+        <!-- Sezione Giornate -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Giornate
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach($viaggio->giornate as $giornata)
+                    <li class="list-group-item">
+                        <strong>{{ $giornata->data }}</strong>: {{ $giornata->descrizione }}
+                        <div class="float-end">
+                            <a href="{{ route('giornate.edit', $giornata->id) }}" class="btn btn-warning btn-sm">Modifica</a>
+                            <form action="{{ route('giornate.destroy', $giornata->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                            </form>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- Sezione Tappe -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Tappe
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach($viaggio->tappe as $tappa)
+                    <li class="list-group-item">
+                        <strong>Località:</strong> {{ $tappa->localita }} 
+                        <span class="badge bg-secondary">{{ $tappa->ordine }}</span>
+                        <div class="float-end">
+                            <a href="{{ route('tappe.edit', $tappa->id) }}" class="btn btn-warning btn-sm">Modifica</a>
+                            <form action="{{ route('tappe.destroy', $tappa->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                            </form>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- Pulsanti di Navigazione -->
+        <a href="{{ route('viaggi.index') }}" class="btn btn-secondary">Torna alla lista dei viaggi</a>
     </div>
 @endsection

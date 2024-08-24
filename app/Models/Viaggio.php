@@ -9,14 +9,20 @@ class Viaggio extends Model
 {
     use HasFactory;
 
-    protected $table = 'viaggi'; // Specifica il nome corretto della tabella
+    protected $table = 'viaggi'; 
 
-    protected $fillable = ['titolo', 'descrizione'];
+    protected $fillable = ['titolo', 'descrizione', 'user_id'];
 
     public function giornate()
     {
         return $this->hasMany(Giornata::class);
+
     }
+    public function tappe()
+    {
+        return $this->hasMany(Tappa::class);
+    }
+    
 
     // Definisci la relazione inversa con User
     public function user()
