@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ViaggioController;
+use App\Http\Controllers\GiornataController;
+use App\Http\Controllers\TappaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::apiResource('viaggi', ViaggioController::class);
+Route::apiResource('giornate', GiornataController::class);
+Route::apiResource('tappe', TappaController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
