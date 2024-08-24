@@ -1,63 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Travel App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrizione Generale
+Travel App è un'applicazione web pensata per la pianificazione e la gestione dei viaggi. Consente agli utenti di creare un diario di viaggio per le loro vacanze, suddividere il viaggio in giornate e tappe, e aggiungere dettagli come descrizioni, immagini, cibo, curiosità, e molto altro. Le tappe sono visualizzate su una mappa interattiva, e l'utente può tenere traccia dei progressi del proprio viaggio.
 
-## About Laravel
+## Obiettivo
+L'obiettivo del progetto è di compiere delle scelte progettuali ponderate, saperle motivare e documentare, e presentare il tutto in maniera strutturata. Il progetto prevede anche di affrontare e risolvere eventuali criticità emerse durante lo sviluppo.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Funzionalità Principali
+- **Creazione di Viaggi:** Possibilità di creare e gestire più viaggi.
+- **Pianificazione di Giornate:** Suddividere un viaggio in giornate, ciascuna con diverse tappe da visitare.
+- **Dettagli delle Tappe:** Aggiungere dettagli come titolo, descrizione, data, immagini, cibo, curiosità, ecc.
+- **Visualizzazione su Mappa:** Le tappe del viaggio sono visualizzate su una mappa interattiva.
+- **Progressione delle Tappe:** Tenere traccia della progressione delle tappe, anche dopo la chiusura della pagina.
+- **Funzionalità Aggiuntive:** Aprire il dettaglio di una tappa o immagine in una modale, aggiungere note durante il viaggio, valutazioni delle tappe.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologie Utilizzate
+- **Backend:** Laravel per la gestione delle API e della logica server-side.
+- **Frontend:** Vite e Vue.js per lo sviluppo dell'interfaccia utente.
+- **Database:** MySQL o SQLite per la persistenza dei dati.
+- **Mappe:** API di Google Maps, OpenStreetMap, o altro servizio di mappe.
+- **Hosting:** Netlify, Vercel, Heroku, o altro servizio di hosting.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installazione e Setup
 
-## Learning Laravel
+### Requisiti
+- PHP >= 8.1
+- Composer
+- Node.js con npm
+- MySQL o SQLite
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Istruzioni
+1. Clonare il repository: `git clone https://github.com/username/travel-app.git`
+2. Navigare nella directory del progetto: `cd travel-app`
+3. Installare le dipendenze di Laravel: `composer install`
+4. Creare un file `.env` a partire da `.env.example` e configurare le variabili d'ambiente, incluse quelle per il database.
+5. Generare una chiave applicativa: `php artisan key:generate`
+6. Eseguire le migrazioni del database: `php artisan migrate`
+7. Installare le dipendenze del frontend: `npm install`
+8. Avviare l'applicazione Laravel: `php artisan serve`
+9. Avviare il server di sviluppo Vite: `npm run dev`
+10. Accedere all'applicazione tramite il browser all'indirizzo `http://localhost:3000`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Milestone
+1. **Progettazione e Pianificazione:** Definire i requisiti funzionali e non funzionali dell'app e creare un wireframe dell'interfaccia utente. Progettare una soluzione tecnologica adeguata. Pianificare le attività da svolgere per arrivare alla deadline.
+2. **Setup Ambiente e Progetto:** Configurare l’ambiente di sviluppo, definire un setup di progetto (strumenti, build tools, git, ecc.) e inizializzare il progetto.
+3. **Definizione di uno Stato (Struttura dei Dati):** Definire la struttura dati idonea a rappresentare un viaggio e tutti i suoi dettagli.
+4. **Sviluppo Layout e Componenti UI:** Sviluppare la struttura di layout e dei componenti della pagina.
+5. **Logica Applicativa:** Implementare la logica di render dell’interfaccia a partire dal dato strutturato.
+6. **Persistenza:** Implementare la funzionalità per salvare la progressione delle tappe e garantire che i dati siano mantenuti anche dopo la chiusura della pagina.
+7. **Deployment:** Caricare il codice su un servizio di hosting.
+8. **Documentazione:** Scrivere un README completo per documentare requisiti, installazione e funzionalità.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
