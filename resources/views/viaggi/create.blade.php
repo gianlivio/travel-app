@@ -1,88 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Crea un Nuovo Viaggio</h1>
+<div class="container">
+    <h1 class="mb-4">Crea Nuovo Viaggio</h1>
+    
+    <!-- Form per creare un nuovo viaggio -->
+    <form action="{{ route('viaggi.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        
+        <!-- Controlliamo se esistevano altri campi o funzionalità specifiche -->
+        <!-- Inserisci qui gli altri campi esistenti, se ce ne sono, con la loro logica precedente -->
 
-        <!-- Pulsante "Indietro" -->
-        <a href="{{ route('viaggi.index') }}" class="btn btn-secondary mb-3">Indietro</a>
+        <div class="form-group">
+            <label for="titolo">Nome dell'avventura</label>
+            <input type="text" class="form-control" id="titolo" name="titolo" value="{{ old('titolo') }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="meta">Meta</label>
+            <input type="text" class="form-control" id="meta" name="meta" value="{{ old('meta') }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="durata">Quanti giorni?</label>
+            <input type="number" class="form-control" id="durata" name="durata" value="{{ old('durata') }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="periodo">Periodo</label>
+            <select class="form-control" id="periodo" name="periodo" required>
+                <option value="" disabled selected>Seleziona un periodo</option>
+                <option value="Estate">Estate</option>
+                <option value="Autunno">Autunno</option>
+                <option value="Primavera">Primavera</option>
+                <option value="Inverno">Inverno</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="dettagli">Dettagli</label>
+            <textarea class="form-control" id="dettagli" name="dettagli" placeholder="Racconta il tuo itinerario..">{{ old('dettagli') }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="image">Carica Immagini</label>
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
 
-        <form action="{{ route('viaggi.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="mb-4">
-                <label for="titolo" class="form-label">Titolo</label>
-                <input type="text" class="form-control" id="titolo" name="titolo" placeholder="Inserisci il titolo del viaggio" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="descrizione" class="form-label">Descrizione</label>
-                <textarea class="form-control" id="descrizione" name="descrizione" rows="3" placeholder="Descrivi brevemente il viaggio"></textarea>
-            </div>
-
-            <!-- Sezione Tappe -->
-            <div class="mb-4" id="tappe-container">
-                <h3 class="mb-3">Tappe</h3>
-                <div class="input-group mb-3">
-                    <input type="text" id="localita-search" class="form-control" placeholder="Inserisci una località">
-                    <button type="button" class="btn btn-outline-secondary" onclick="addTappa()">Aggiungi Tappa</button>
-                </div>
-                <ul id="tappe-list" class="list-group">
-                    <!-- Le tappe aggiunte dinamicamente saranno mostrate qui -->
-                </ul>
-            </div>
-
-            <div class="mb-4">
-                <label for="image" class="form-label">Carica Immagine</label>
-                <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-                <img id="image-preview" src="#" alt="Anteprima Immagine" style="display:none; width: 200px; height: auto; margin-top: 10px;">
-            </div>
-
-            <!-- Pulsanti di Azione -->
-            <button type="submit" class="btn btn-primary">Salva Viaggio</button>
-            <a href="{{ route('viaggi.index') }}" class="btn btn-secondary">Annulla</a>
-        </form>
-    </div>
-
-    <script>
-        const tappeList = document.getElementById('tappe-list');
-
-        function previewImage(event) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('image-preview');
-                output.src = reader.result;
-                output.style.display = 'block';
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        function addTappa() {
-            const searchInput = document.getElementById('localita-search');
-            const localita = searchInput.value.trim();
-            if (localita === '') {
-                alert('Inserisci una località per aggiungere una tappa.');
-                return;
-            }
-
-            const li = document.createElement('li');
-            li.className = 'list-group-item d-flex justify-content-between align-items-center';
-            li.textContent = localita;
-            const hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'tappe[]';
-            hiddenInput.value = localita;
-            li.appendChild(hiddenInput);
-
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'btn btn-danger btn-sm';
-            removeBtn.textContent = 'Rimuovi';
-            removeBtn.onclick = function () {
-                tappeList.removeChild(li);
-            };
-            li.appendChild(removeBtn);
-
-            tappeList.appendChild(li);
-            searchInput.value = '';
-        }
-    </script>
+        <!-- Aggiungi qui script o altri elementi interattivi, se ce ne sono -->
+        
+        <!-- Bottoni di azione con distanza dal form -->
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">Crea Viaggio</button>
+            <a href="{{ route('viaggi.index') }}" class="btn btn-secondary">Torna Indietro</a>
+        </div>
+    </form>
+</div>
 @endsection

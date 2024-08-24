@@ -1,1 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
+
+.table-viaggi {
+    tbody tr {
+        height: 120px; // Altezza fissa per ogni riga
+    }
+    img {
+        max-height: 100px; // Altezza massima dell'immagine
+        width: auto; // Mantenere le proporzioni
+        object-fit: cover; // Taglia l'immagine se necessario
+        display: block;
+        margin: auto;
+    }
+}
