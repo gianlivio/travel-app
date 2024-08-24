@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ViaggioController;
+use App\Http\Controllers\GiornataController;
+use App\Http\Controllers\TappaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/', [ViaggioController::class, 'index'])->name('home');
+Route::resource('viaggi', ViaggioController::class);
+Route::resource('giornate', GiornataController::class);
+Route::resource('tappe', TappaController::class);
 
 Route::middleware('auth')
     ->prefix('admin') // Prefisso nell'url delle rotte di questo gruppo

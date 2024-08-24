@@ -12,8 +12,8 @@ class ViaggioController extends Controller
      */
     public function index()
     {
-        $viaggi = Viaggio::with('giornate')->get();
-        return response()->json($viaggi);
+        $viaggi = Viaggio::all();
+        return view('viaggi.index', compact('viaggi'));
     }
 
     /**
@@ -43,7 +43,8 @@ class ViaggioController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json($viaggio->load('giornate'));
+        $viaggio = Viaggio::findOrFail($id);
+        return view('viaggi.show', compact('viaggio'));
     }
 
     /**
