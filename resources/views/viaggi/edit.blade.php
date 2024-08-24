@@ -4,9 +4,9 @@
     <div class="container">
         <h1>Modifica Viaggio</h1>
 
-        <form action="{{ route('viaggi.update', $viaggio->id) }}" method="POST">
+        <form action="{{ route('viaggi.update', $viaggio->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('PATCH')
 
             <div class="mb-3">
                 <label for="titolo" class="form-label">Titolo</label>

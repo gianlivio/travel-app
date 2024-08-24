@@ -106,11 +106,15 @@ class ViaggioController extends Controller
         // Gestione dell'immagine
         $imagePath = $viaggio->image;
         if ($request->hasFile('image')) {
-            // Elimina l'immagine precedente se esiste
-            if ($viaggio->image) {
-                Storage::disk('public')->delete($viaggio->image);
+            try {
+                // Elimina l'immagine precedente se esiste
+                if ($viaggio->image) {
+                    Storage::disk('public')->delete($viaggio->image);
+                }
+                $imagePath = $request->file('image')->store('viaggi_images', 'public');
+            } catch (\Exception $e) {
+                return back()->withErrors(['image' => 'Errore nel caricamento dell\'immagine: ' . $e->getMessage()]);
             }
-            $imagePath = $request->file('image')->store('viaggi_images', 'public');
         }
 
         // Aggiornamento dei dati
@@ -119,8 +123,6 @@ class ViaggioController extends Controller
             'descrizione' => $request->input('descrizione'),
             'image' => $imagePath,
         ]);
-
-        // Aggiorna le giornate e tappe se fornite
 
         return redirect()->route('viaggi.show', $viaggio->id)->with('success', 'Viaggio aggiornato con successo');
     }
