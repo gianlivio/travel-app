@@ -9,7 +9,9 @@ class Viaggio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titolo', 'descrizione', 'user_id'];
+    protected $table = 'viaggi'; // Specifica il nome corretto della tabella
+
+    protected $fillable = ['titolo', 'descrizione'];
 
     public function giornate()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Viaggio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ViaggioController extends Controller
 {
@@ -21,7 +22,7 @@ class ViaggioController extends Controller
      */
     public function create()
     {
-        //
+        return view('viaggi.create'); 
     }
 
     /**
@@ -34,8 +35,14 @@ class ViaggioController extends Controller
             'descrizione' => 'nullable|string',
         ]);
 
-        $viaggio = Viaggio::create($request->all());
-        return response()->json($viaggio, 201);
+        // Aggiungi l'ID dell'utente al nuovo viaggio
+        $viaggio = Viaggio::create([
+            'titolo' => $request->titolo,
+            'descrizione' => $request->descrizione,
+            'user_id' => Auth::id(), 
+        ]);
+
+        return redirect()->route('viaggi.show', $viaggio->id)->with('success', 'Viaggio creato con successo');
     }
 
     /**
@@ -52,7 +59,8 @@ class ViaggioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $viaggio = Viaggio::findOrFail($id);
+        return view('viaggi.edit', compact('viaggio'));
     }
 
     /**
@@ -64,9 +72,11 @@ class ViaggioController extends Controller
             'titolo' => 'required|string|max:255',
             'descrizione' => 'nullable|string',
         ]);
-
+    
+        $viaggio = Viaggio::findOrFail($id);
         $viaggio->update($request->all());
-        return response()->json($viaggio);
+    
+        return redirect()->route('viaggi.show', $viaggio->id)->with('success', 'Viaggio aggiornato con successo');
     }
 
     /**

@@ -17,9 +17,7 @@ use App\Http\Controllers\TappaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::get('/', [ViaggioController::class, 'index'])->name('home');
 Route::resource('viaggi', ViaggioController::class);
 Route::resource('giornate', GiornataController::class);
