@@ -15,7 +15,7 @@ body {
 body::before {
     content: '';
     background-image: url('/images/travel.png'); // Percorso relativo all'immagine del logo
-    background-size: 80%; // Dimensione del logo
+    background-size: 100%; // Dimensione del logo
     background-repeat: no-repeat;
     background-position: center; // Centra il logo sullo schermo
     opacity: 0.1; // Trasparenza del logo
@@ -64,13 +64,28 @@ h1, .card-title {
 }
 
 .card-footer {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background-color: rgba($text-color, 0.8); // Sfondo semi-trasparente per evidenziarlo
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    padding: 5px;
+    // Sfondo semi-trasparente per evidenziarlo
 }
+
+.card-footer .crud-icon {    
+    border-radius: 50%;
+    padding: 10px;
+    background-color: rgb(236, 68, 68);
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+}
+.crud-icon a {
+       
+    text-decoration: none; /* Rimuove la sottolineatura dei link */
+}
+
+
 .row .col-md-4 {
     padding-left: 10px; // Riduce lo spazio sinistro tra le colonne
     padding-right: 10px; // Riduce lo spazio destro tra le colonne

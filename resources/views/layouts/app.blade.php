@@ -27,8 +27,8 @@
         <nav class="navbar navbar-expand-md navbar-light" style="background-color: #f8f9fa;">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <img src="{{ asset('images/travel.png') }}" alt="Logo" style="width: 30px; height: 30px;">
-                    <span style="color: #007bff; font-weight: bold; margin-left: 10px;">Travel App</span>
+                    <img src="{{ asset('images/travel.png') }}" alt="Logo" style="width: 60px; height: 60px;">
+                    <span style="color: #ff4500; font-weight: bold; margin-left: 10px;">Travel App</span>
                 </a>
         
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

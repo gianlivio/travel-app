@@ -4,22 +4,18 @@
     <div class="container my-4">
         <h1 class="mb-4 text-center">Diario di Viaggio</h1>
         
-        <!-- Pulsante per creare una nuova avventura -->
-        <div class="text-center mb-4">
-            <a href="{{ route('viaggi.create') }}" class="btn btn-success">Crea Nuova Avventura</a>
-        </div>
 
         <!-- Griglia di Card -->
         <div class="row">
             @foreach($viaggi as $viaggio)
                 <div class="col-md-4">
-                    <div class="card mb-3 shadow-sm" style="width: 400px; height: 500px;"> <!-- Aumentate le dimensioni -->
+                    <div class="card mb-3 shadow-sm"> <!-- Le dimensioni possono essere gestite tramite SCSS -->
                         @if($viaggio->image)
                             <img src="{{ asset('storage/' . $viaggio->image) }}" class="card-img-top" alt="Immagine Viaggio">
                         @else
                             <img src="{{ asset('images/default.png') }}" class="card-img-top" alt="Nessuna Immagine">
                         @endif
-                        <div class="card-body card-content" style="max-height: 250px; overflow-y: auto;"> <!-- Maggiore altezza disponibile -->
+                        <div class="card-body card-content"> <!-- Maggiore altezza disponibile -->
                             <h5 class="card-title">
                                 <i class="fas fa-map-signs"></i> <!-- Icona del titolo -->
                                 {{ $viaggio->titolo }}
@@ -42,25 +38,37 @@
                             </p>
                         </div>
                         <div class="card-footer"> <!-- Sezione per il footer -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{ route('viaggi.show', $viaggio->id) }}" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-eye"></i> Visualizza
-                                </a>
-                                <a href="{{ route('viaggi.edit', $viaggio->id) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Modifica
-                                </a>
-                                <form action="{{ route('viaggi.destroy', $viaggio->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash-alt"></i> Elimina
-                                    </button>
-                                </form>
+                            <div class="d-flex align-items-center justify-content-start"> <!-- Cambiato a justify-content-start -->
+                                <span class="crud-icon me-2" title="Visualizza">
+                                    <a href="{{ route('viaggi.show', $viaggio->id) }}">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </span>
+                                <span class="crud-icon me-2" title="Modifica">
+                                    <a href="{{ route('viaggi.edit', $viaggio->id) }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </span>
+                                <span class="crud-icon" title="Elimina">
+                                    <form action="{{ route('viaggi.destroy', $viaggio->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="background: none; border: none; padding: 0; color: inherit; cursor: pointer;">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+
+                <!-- Pulsante per creare una nuova avventura -->
+                <div class="text-center mb-4">
+                    <a href="{{ route('viaggi.create') }}" class="btn btn-success">Crea Nuova Avventura</a>
+                </div>
+        
     </div>
 @endsection
