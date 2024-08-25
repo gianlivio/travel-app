@@ -13,3 +13,34 @@
         margin: auto;
     }
 }
+
+/* Stili di base */
+body {
+    background-color: #f8d7da; /* Rosso pastello chiaro */
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, .card-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    color: #c0392b; /* Rosso scuro per titoli */
+}
+
+.card {
+    color: #343a40;
+    margin-bottom: 20px; /* Margine sotto ogni card */
+    padding: 15px; /* Padding interno per il contenuto */
+    border-radius: 8px; /* Bordo arrotondato */
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 8px; /* Arrotonda gli angoli superiori */
+    border-top-right-radius: 8px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
