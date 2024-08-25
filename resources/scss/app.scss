@@ -1,46 +1,77 @@
 @import "~bootstrap/scss/bootstrap";
+@import '@fortawesome/fontawesome-free/css/all.css';
 @import 'partials/variables';
 
-.table-viaggi {
-    tbody tr {
-        height: 120px; // Altezza fissa per ogni riga
-    }
-    img {
-        max-height: 100px; // Altezza massima dell'immagine
-        width: auto; // Mantenere le proporzioni
-        object-fit: cover; // Taglia l'immagine se necessario
-        display: block;
-        margin: auto;
-    }
-}
-
-/* Stili di base */
+// Sfondo del corpo con immagine del logo
 body {
-    background-color: #f8d7da; /* Rosso pastello chiaro */
+    background-color: $background-color; /* Nuovo colore di sfondo */
     font-family: 'Poppins', sans-serif;
+    color: $text-color; /* Colore del testo */
+    position: relative;
+    overflow-x: hidden; // Evitare lo scroll orizzontale indesiderato
 }
 
+// Aggiungere il logo in trasparenza
+body::before {
+    content: '';
+    background-image: url('/images/travel.png'); // Percorso relativo all'immagine del logo
+    background-size: 80%; // Dimensione del logo
+    background-repeat: no-repeat;
+    background-position: center; // Centra il logo sullo schermo
+    opacity: 0.1; // Trasparenza del logo
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; // Assicurarsi che sia dietro il contenuto
+}
+
+// Stili dei titoli e card
 h1, .card-title {
     font-family: 'Roboto Slab', serif;
     font-weight: bold;
-    color: #c0392b; /* Rosso scuro per titoli */
+    color: $primary-color; /* Colore per titoli */
 }
 
 .card {
-    color: #343a40;
-    margin-bottom: 20px; /* Margine sotto ogni card */
-    padding: 15px; /* Padding interno per il contenuto */
-    border-radius: 8px; /* Bordo arrotondato */
+    width: 400px; // Larghezza fissa aumentata
+    height: 500px; // Altezza fissa aumentata
+    overflow: hidden; // Nascondere il contenuto che eccede
+    background-color: $secondary-color; // Colore di sfondo della card
+    color: $text-color;
+    margin-bottom: 10px; // Ridotto per avvicinare le card
+    padding: 15px; // Padding interno per il contenuto
+    border-radius: 8px; // Bordo arrotondato
 }
 
 .card-img-top {
-    height: 200px;
+    height: 250px; // Maggiore altezza disponibile per l'immagine
     object-fit: cover;
-    border-top-left-radius: 8px; /* Arrotonda gli angoli superiori */
+    border-top-left-radius: 8px; // Arrotonda gli angoli superiori
     border-top-right-radius: 8px;
 }
 
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+    max-height: 200px; // Altezza massima per il contenuto
+    overflow-y: auto; // Aggiunge uno scroll verticale se il contenuto eccede
+    padding-bottom: 50px; 
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba($text-color, 0.8); // Sfondo semi-trasparente per evidenziarlo
+}
+.row .col-md-4 {
+    padding-left: 10px; // Riduce lo spazio sinistro tra le colonne
+    padding-right: 10px; // Riduce lo spazio destro tra le colonne
 }

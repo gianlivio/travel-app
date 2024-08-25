@@ -13,13 +13,13 @@
         <div class="row">
             @foreach($viaggi as $viaggio)
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                    <div class="card mb-3 shadow-sm" style="width: 400px; height: 500px;"> <!-- Aumentate le dimensioni -->
                         @if($viaggio->image)
                             <img src="{{ asset('storage/' . $viaggio->image) }}" class="card-img-top" alt="Immagine Viaggio">
                         @else
                             <img src="{{ asset('images/default.png') }}" class="card-img-top" alt="Nessuna Immagine">
                         @endif
-                        <div class="card-body">
+                        <div class="card-body card-content" style="max-height: 250px; overflow-y: auto;"> <!-- Maggiore altezza disponibile -->
                             <h5 class="card-title">
                                 <i class="fas fa-map-signs"></i> <!-- Icona del titolo -->
                                 {{ $viaggio->titolo }}
@@ -36,7 +36,12 @@
                                 <i class="fas fa-calendar-alt"></i> <!-- Icona per Periodo -->
                                 <strong> Periodo:</strong> {{ $viaggio->periodo }}
                             </p>
-                            <p class="card-text">{{ Str::limit($viaggio->dettagli, 100) }}</p>
+                            <p class="card-text">
+                                <i class="fas fa-align-left"></i> <!-- Icona per Dettagli -->
+                                <strong> Dettagli:</strong> {{ $viaggio->dettagli }}
+                            </p>
+                        </div>
+                        <div class="card-footer"> <!-- Sezione per il footer -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('viaggi.show', $viaggio->id) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-eye"></i> Visualizza
