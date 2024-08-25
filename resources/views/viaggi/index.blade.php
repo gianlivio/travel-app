@@ -22,7 +22,7 @@
                             </h5>
                             <p class="card-text">
                                 <i class="fas fa-map-marker-alt"></i> <!-- Icona per Meta -->
-                                <strong> Meta:</strong> {{ $viaggio->meta }}
+                                <strong> Itinerario:</strong> {{ $viaggio->meta }}
                             </p>
                             <p class="card-text">
                                 <i class="fas fa-clock"></i> <!-- Icona per Durata -->
@@ -67,7 +67,7 @@
 
                 <!-- Pulsante per creare una nuova avventura -->
                 <div class="text-center mb-4">
-                    <a href="{{ route('viaggi.create') }}" class="btn btn-success">Crea Nuova Avventura</a>
+                    <a href="{{ route('viaggi.create') }}" class="btn btn-success">Pianifica il prossimo viaggio</a>
                 </div>
         
     </div>
