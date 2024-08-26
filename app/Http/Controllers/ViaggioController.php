@@ -16,7 +16,7 @@ class ViaggioController extends Controller
     public function index()
     {
         $viaggi = Viaggio::all();
-        return view('viaggi.index', compact('viaggi'));
+        return view('admin.viaggi.index', compact('viaggi'));
     }
 
     /**
@@ -24,7 +24,7 @@ class ViaggioController extends Controller
      */
     public function create()
     {
-        return view('viaggi.create'); 
+        return view('admin.viaggi.create'); 
     }
 
     /**
@@ -71,7 +71,7 @@ class ViaggioController extends Controller
             }
         }
 
-        return redirect()->route('viaggi.index')->with('success', 'Viaggio creato con successo.');
+        return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio creato con successo.');
     }
 
     /**
@@ -80,7 +80,7 @@ class ViaggioController extends Controller
     public function show(string $id)
     {
         $viaggio = Viaggio::findOrFail($id);
-        return view('viaggi.show', compact('viaggio'));
+        return view('admin.viaggi.show', compact('viaggio'));
     }
 
     /**
@@ -89,7 +89,7 @@ class ViaggioController extends Controller
     public function edit(string $id)
     {
         $viaggio = Viaggio::findOrFail($id);
-        return view('viaggi.edit', compact('viaggio'));
+        return view('admin.viaggi.edit', compact('viaggio'));
     }
 
     /**
@@ -132,7 +132,7 @@ class ViaggioController extends Controller
         'image' => $imagePath,
     ]);
 
-    return redirect()->route('viaggi.index')->with('success', 'Viaggio aggiornato con successo');
+    return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
     }
     /**
      * Remove the specified resource from storage.
@@ -145,6 +145,6 @@ class ViaggioController extends Controller
             Storage::disk('public')->delete($viaggio->image);
         }
         $viaggio->delete();
-        return redirect()->route('viaggi.index')->with('success', 'Viaggio eliminato con successo');
+        return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio eliminato con successo');
     }
 }

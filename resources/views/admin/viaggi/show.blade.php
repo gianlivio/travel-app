@@ -1,3 +1,4 @@
+@auth
 @extends('layouts.app')
 
 @section('content')
@@ -15,10 +16,12 @@
     <p><strong>Periodo:</strong> {{ $viaggio->periodo }}</p>
     <p><strong>Dettagli:</strong> {{ $viaggio->dettagli }}</p>
 
-    <!-- Bottoni di azione con distanza dal contenuto -->
     <div class="mt-4">
-        <a href="{{ route('viaggi.index') }}" class="btn btn-secondary">Torna Indietro</a>
-        <a href="{{ route('viaggi.edit', $viaggio->id) }}" class="btn btn-warning">Modifica</a>
+        <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary">Torna Indietro</a>
+        <a href="{{ route('admin.viaggi.edit', $viaggio->id) }}" class="btn btn-warning">Modifica</a>
     </div>
 </div>
 @endsection
+@else
+    <script>window.location.href = '{{ route('login') }}';</script>
+@endauth
