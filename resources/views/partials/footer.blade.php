@@ -9,9 +9,9 @@
             <div class="col-md-4">
                 <h5 class="text-uppercase" style="font-family: 'Lato', sans-serif;">Navigazione</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('viaggi.index') }}" class="text-white">Viaggi</a></li>
+                    <li><a href="{{ route('admin.viaggi.index') }}" class="text-white">Viaggi</a></li>
                     
-                    <li><a href="{{ route('viaggi.create') }}" class="text-white">Crea Viaggio</a></li>
+                    <li><a href="{{ route('admin.viaggi.create') }}" class="text-white">Crea Viaggio</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
