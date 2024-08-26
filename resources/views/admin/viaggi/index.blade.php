@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container my-4">
-        <h1 class="mb-4 text-center">Diario di Viaggio</h1>
+        <h1 class="mb-4 text-center display-1 font-weight-bold">Diario di Viaggio</h1>
         
         <!-- Griglia di Card -->
         <div class="row">
@@ -65,6 +65,8 @@
         </div>
     </div>
 @endsection
-@else
-    <script>window.location.href = '{{ route('login') }}';</script>
 @endauth
+
+@guest
+    <script>window.location.href = '{{ route('login') }}';</script>
+@endguest

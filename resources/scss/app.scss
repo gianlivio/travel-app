@@ -2,6 +2,36 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 @import 'partials/variables';
 
+
+// Navbar Styles
+.navbar {
+    background-color: $navbar-bg-color;
+    .navbar-brand {
+        color: $navbar-brand-color;
+        font-weight: bold;
+        margin-left: 10px;
+
+        &:hover {
+            color: $navbar-brand-color;
+        }
+    }
+
+    .nav-link {
+        color: $navbar-text-color;
+        font-weight: bold;
+
+        &:hover {
+            color: lighten($navbar-text-color, 20%);
+        }
+    }
+
+    .dropdown-menu {
+        background-color: $navbar-bg-color;
+    }
+}
+
+
+
 // Sfondo del corpo con immagine del logo
 body {
     background-color: $background-color; /* Nuovo colore di sfondo */
@@ -89,4 +119,44 @@ h1, .card-title {
 .row .col-md-4 {
     padding-left: 10px; // Riduce lo spazio sinistro tra le colonne
     padding-right: 10px; // Riduce lo spazio destro tra le colonne
+}
+
+
+
+
+/* Footer Styles */
+footer {
+    background-color: #070707;
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    margin-top: 5rem;
+
+    h5 {
+        font-family: 'Verdana', sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        text-transform: uppercase;
+    }
+
+    p, ul li a {
+        font-family: 'Verdana', sans-serif;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: white;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .container {
+        hr {
+            background-color: lightgray;
+        }
+        p.mb-0 {
+            font-size: 0.8rem;
+        }
+    }
 }

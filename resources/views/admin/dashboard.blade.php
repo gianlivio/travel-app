@@ -15,8 +15,12 @@
                         @endif
 
                         {{ __('You are logged in!') }}
+
+                        
                     </div>
                 </div>
+                <a href="{{ route('admin.viaggi.index') }}" class="btn btn-primary mt-4">Gestisci Viaggi</a>
+
             </div>
         </div>
     </div>

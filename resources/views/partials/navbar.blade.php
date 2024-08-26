@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-md navbar-light" style="background-color: #f8f9fa;">
+<nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <img src="{{ asset('images/travel.png') }}" alt="Logo" style="width: 60px; height: 60px;">
-            <span style="color: #ff4500; font-weight: bold; margin-left: 10px;">Travel App</span>
+            <span>Travel App</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -20,11 +20,11 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}" style="color: #007bff;">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}" style="color: #007bff;">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                 @else
