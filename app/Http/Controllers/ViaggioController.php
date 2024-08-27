@@ -38,38 +38,23 @@ class ViaggioController extends Controller
             'durata' => 'required|integer',
             'periodo' => 'required|string',
             'dettagli' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Modifica qui
         ]);
-    
+
         $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('viaggi_images', 'public');
+        if ($request->hasFile('immagine')) { // Modifica qui
+            $imagePath = $request->file('immagine')->store('viaggi_images', 'public'); // Modifica qui
         }
-    
-        Viaggio::create([
+
+        $viaggio = Viaggio::create([
             'titolo' => $request->input('titolo'),
             'meta' => $request->input('meta'),
             'durata' => $request->input('durata'),
             'periodo' => $request->input('periodo'),
             'dettagli' => $request->input('dettagli'),
-            'image' => $imagePath,
+            'immagine' => $imagePath, // Modifica qui
+            'user_id' => Auth::id(),
         ]);
-    
-  
-
-        // Salva le giornate
-        if ($request->has('giornate')) {
-            foreach ($request->giornate as $giornataData) {
-                $viaggio->giornate()->create($giornataData);
-            }
-        }
-
-        // Salva le tappe
-        if ($request->has('tappe')) {
-            foreach ($request->tappe as $tappaData) {
-                $viaggio->tappe()->create($tappaData);
-            }
-        }
 
         return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio creato con successo.');
     }
@@ -97,42 +82,38 @@ class ViaggioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-    $request->validate([
-        'titolo' => 'required|string|max:255',
-        'meta' => 'required|string|max:255',
-        'durata' => 'required|integer',
-        'periodo' => 'required|string',
-        'dettagli' => 'nullable|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+        $request->validate([
+            'titolo' => 'required|string|max:255',
+            'meta' => 'required|string|max:255',
+            'durata' => 'required|integer',
+            'periodo' => 'required|string',
+            'dettagli' => 'nullable|string',
+            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Modifica qui
+        ]);
 
-    $viaggio = Viaggio::findOrFail($id);
+        $viaggio = Viaggio::findOrFail($id);
 
-    // Gestione dell'immagine
-    $imagePath = $viaggio->image;
-    if ($request->hasFile('image')) {
-        try {
+        // Gestione dell'immagine
+        $imagePath = $viaggio->immagine; // Modifica qui
+        if ($request->hasFile('immagine')) { // Modifica qui
             // Elimina l'immagine precedente se esiste
-            if ($viaggio->image) {
-                Storage::disk('public')->delete($viaggio->image);
+            if ($viaggio->immagine) { // Modifica qui
+                Storage::disk('public')->delete($viaggio->immagine); // Modifica qui
             }
-            $imagePath = $request->file('image')->store('viaggi_images', 'public');
-        } catch (\Exception $e) {
-            return back()->withErrors(['image' => 'Errore nel caricamento dell\'immagine: ' . $e->getMessage()]);
+            $imagePath = $request->file('immagine')->store('viaggi_images', 'public'); // Modifica qui
         }
-    }
 
-    // Aggiornamento dei dati
-    $viaggio->update([
-        'titolo' => $request->input('titolo'),
-        'meta' => $request->input('meta'),
-        'durata' => $request->input('durata'),
-        'periodo' => $request->input('periodo'),
-        'dettagli' => $request->input('dettagli'),
-        'image' => $imagePath,
-    ]);
+        // Aggiornamento dei dati
+        $viaggio->update([
+            'titolo' => $request->input('titolo'),
+            'meta' => $request->input('meta'),
+            'durata' => $request->input('durata'),
+            'periodo' => $request->input('periodo'),
+            'dettagli' => $request->input('dettagli'),
+            'immagine' => $imagePath, // Modifica qui
+        ]);
 
-    return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
+        return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
     }
     /**
      * Remove the specified resource from storage.

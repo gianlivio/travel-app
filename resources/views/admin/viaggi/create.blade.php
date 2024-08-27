@@ -39,8 +39,8 @@
         </div>
         
         <div class="form-group">
-            <label for="image">Carica Immagini</label>
-            <input type="file" class="form-control" id="image" name="image">
+            <label for="immagine">Carica Immagine</label>
+            <input type="file" class="form-control" id="immagine" name="immagine">
         </div>
 
         <div class="mt-4">

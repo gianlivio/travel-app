@@ -13,21 +13,31 @@ class Viaggio extends Model
 
     protected $fillable = ['titolo', 'meta', 'durata', 'periodo', 'dettagli', 'image', 'user_id'];
 
-
     public function giornate()
     {
         return $this->hasMany(Giornata::class);
-
     }
+
     public function tappe()
     {
         return $this->hasMany(Tappa::class);
     }
-    
 
     // Definisci la relazione inversa con User
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Relazione con le immagini multiple
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    // Immagine di anteprima
+    public function previewImage()
+    {
+        return $this->hasOne(Image::class)->where('is_preview', true);
     }
 }

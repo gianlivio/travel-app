@@ -41,13 +41,13 @@
         </div>
         
         <div class="form-group">
-            <label for="image">Carica Immagini</label>
-            <input type="file" class="form-control" id="image" name="image">
+            <label for="immagine">Carica Immagine</label>
+            <input type="file" class="form-control" id="immagine" name="immagine">
         </div>
         
-        @if($viaggio->image)
+        @if($viaggio->immagine)
             <div class="mb-3">
-                <img src="{{ asset('storage/' . $viaggio->image) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+                <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
             </div>
         @endif
         

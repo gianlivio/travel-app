@@ -10,8 +10,8 @@
             @foreach($viaggi as $viaggio)
                 <div class="col-md-4">
                     <div class="card mb-3 shadow-sm">
-                        @if($viaggio->image)
-                            <img src="{{ asset('storage/' . $viaggio->image) }}" class="card-img-top" alt="Immagine Viaggio">
+                        @if($viaggio->immagine)
+                            <img src="{{ asset('storage/' . $viaggio->immagine) }}" class="card-img-top" alt="Immagine Viaggio">
                         @else
                             <img src="{{ asset('images/default.png') }}" class="card-img-top" alt="Nessuna Immagine">
                         @endif
