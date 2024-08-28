@@ -38,12 +38,13 @@ class ViaggioController extends Controller
             'durata' => 'required|integer',
             'periodo' => 'required|string',
             'dettagli' => 'nullable|string',
-            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Modifica qui
+            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         $imagePath = null;
-        if ($request->hasFile('immagine')) { // Modifica qui
-            $imagePath = $request->file('immagine')->store('viaggi_images', 'public'); // Modifica qui
+        if ($request->hasFile('immagine')) { 
+            $imagePath = $request->file('immagine')->store('images', 'public'); 
+            $viaggio->immagine = $imagePath; 
         }
 
         $viaggio = Viaggio::create([
@@ -52,7 +53,7 @@ class ViaggioController extends Controller
             'durata' => $request->input('durata'),
             'periodo' => $request->input('periodo'),
             'dettagli' => $request->input('dettagli'),
-            'immagine' => $imagePath, // Modifica qui
+            'immagine' => $imagePath,
             'user_id' => Auth::id(),
         ]);
 
@@ -88,19 +89,19 @@ class ViaggioController extends Controller
             'durata' => 'required|integer',
             'periodo' => 'required|string',
             'dettagli' => 'nullable|string',
-            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Modifica qui
+            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         $viaggio = Viaggio::findOrFail($id);
 
         // Gestione dell'immagine
-        $imagePath = $viaggio->immagine; // Modifica qui
-        if ($request->hasFile('immagine')) { // Modifica qui
+        $imagePath = $viaggio->immagine;
+        if ($request->hasFile('immagine')) { 
             // Elimina l'immagine precedente se esiste
-            if ($viaggio->immagine) { // Modifica qui
-                Storage::disk('public')->delete($viaggio->immagine); // Modifica qui
+            if ($viaggio->immagine) {
+                Storage::disk('public')->delete($viaggio->immagine);
             }
-            $imagePath = $request->file('immagine')->store('viaggi_images', 'public'); // Modifica qui
+            $imagePath = $request->file('immagine')->store('images', 'public'); 
         }
 
         // Aggiornamento dei dati
@@ -110,7 +111,7 @@ class ViaggioController extends Controller
             'durata' => $request->input('durata'),
             'periodo' => $request->input('periodo'),
             'dettagli' => $request->input('dettagli'),
-            'immagine' => $imagePath, // Modifica qui
+            'immagine' => $imagePath, 
         ]);
 
         return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');

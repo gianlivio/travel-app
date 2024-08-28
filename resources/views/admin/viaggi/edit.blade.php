@@ -47,7 +47,7 @@
         
         @if($viaggio->immagine)
             <div class="mb-3">
-                <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+                <img src="{{ asset('images/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
             </div>
         @endif
         
