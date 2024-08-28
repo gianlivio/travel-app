@@ -1,4 +1,5 @@
 @auth
+
 @extends('layouts.app')
 
 @section('content')
@@ -6,13 +7,14 @@
     <h1>{{ $viaggio->titolo }}</h1>
     <div class="mb-4">
         @if($viaggio->immagine)
-        <div class="mb-3">
-            <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
-        </div>
-        @endif
+            <div class="mb-3">
+                <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+            </div>
+        @else
             Nessuna Immagine disponibile
         @endif
     </div>
+
     <p><strong>Meta:</strong> {{ $viaggio->meta }}</p>
     <p><strong>Durata:</strong> {{ $viaggio->durata }} giorni</p>
     <p><strong>Periodo:</strong> {{ $viaggio->periodo }}</p>
@@ -24,6 +26,7 @@
     </div>
 </div>
 @endsection
+
 @else
     <script>window.location.href = '{{ route('login') }}';</script>
 @endauth
