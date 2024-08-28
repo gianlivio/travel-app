@@ -17,7 +17,7 @@
                         @endif
                         <div class="card-body card-content">
                             <h5 class="card-title">
-                                <i class="fas fa-map-signs"></i> {{ $viaggio->titolo }}
+                                <i></i> {{ $viaggio->titolo }}
                             </h5>
                             <p class="card-text">
                                 <i class="fas fa-map-marker-alt"></i> <strong> Meta:</strong> {{ $viaggio->meta }}
