@@ -6,8 +6,10 @@
     <h1>{{ $viaggio->titolo }}</h1>
     <div class="mb-4">
         @if($viaggio->immagine)
-            <img src="{{ asset('images/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 300px; height: auto;">
-        @else
+        <div class="mb-3">
+            <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+        </div>
+        @endif
             Nessuna Immagine disponibile
         @endif
     </div>

@@ -11,7 +11,7 @@
                 <div class="col-md-4">
                     <div class="card mb-3 shadow-sm">
                         @if($viaggio->immagine)
-                            <img src="{{ asset('images' . $viaggio->immagine) }}" class="card-img-top" alt="Immagine Viaggio">
+                            <img src="{{ asset('storage/' . $viaggio->immagine) }}" class="card-img-top" alt="Immagine Viaggio">
                         @else
                             <img src="{{ asset('images/default.png') }}" class="card-img-top" alt="Nessuna Immagine">
                         @endif

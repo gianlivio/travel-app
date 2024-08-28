@@ -46,10 +46,10 @@
         </div>
         
         @if($viaggio->immagine)
-            <div class="mb-3">
-                <img src="{{ asset('images/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
-            </div>
-        @endif
+        <div class="mb-3">
+            <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+        </div>
+         @endif
         
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">Salva Modifiche</button>

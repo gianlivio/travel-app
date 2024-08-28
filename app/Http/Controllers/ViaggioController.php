@@ -42,9 +42,8 @@ class ViaggioController extends Controller
         ]);
 
         $imagePath = null;
-        if ($request->hasFile('immagine')) { 
-            $imagePath = $request->file('immagine')->store('images', 'public'); 
-            $viaggio->immagine = $imagePath; 
+        if ($request->hasFile('immagine')) {
+            $imagePath = $request->file('immagine')->store('viaggi_images', 'public');
         }
 
         $viaggio = Viaggio::create([
@@ -94,24 +93,21 @@ class ViaggioController extends Controller
 
         $viaggio = Viaggio::findOrFail($id);
 
-        // Gestione dell'immagine
         $imagePath = $viaggio->immagine;
-        if ($request->hasFile('immagine')) { 
-            // Elimina l'immagine precedente se esiste
+        if ($request->hasFile('immagine')) {
             if ($viaggio->immagine) {
                 Storage::disk('public')->delete($viaggio->immagine);
             }
-            $imagePath = $request->file('immagine')->store('images', 'public'); 
+            $imagePath = $request->file('immagine')->store('viaggi_images', 'public');
         }
 
-        // Aggiornamento dei dati
         $viaggio->update([
             'titolo' => $request->input('titolo'),
             'meta' => $request->input('meta'),
             'durata' => $request->input('durata'),
             'periodo' => $request->input('periodo'),
             'dettagli' => $request->input('dettagli'),
-            'immagine' => $imagePath, 
+            'immagine' => $imagePath,
         ]);
 
         return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
@@ -124,7 +120,7 @@ class ViaggioController extends Controller
         $viaggio = Viaggio::findOrFail($id);
         // Elimina l'immagine associata
         if ($viaggio->image) {
-            Storage::disk('public')->delete($viaggio->image);
+            Storage::disk('public')->delete($viaggio->immagine);
         }
         $viaggio->delete();
         return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio eliminato con successo');

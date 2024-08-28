@@ -11,7 +11,7 @@ class Viaggio extends Model
 
     protected $table = 'viaggi'; 
 
-    protected $fillable = ['titolo', 'meta', 'durata', 'periodo', 'dettagli', 'image', 'user_id'];
+    protected $fillable = ['titolo', 'meta', 'durata', 'periodo', 'dettagli', 'immagine', 'user_id'];
 
     public function giornate()
     {
@@ -27,12 +27,6 @@ class Viaggio extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Relazione con le immagini multiple
-    public function images()
-    {
-        return $this->hasMany(Image::class);
     }
 
     // Immagine di anteprima
