@@ -22,26 +22,26 @@
 
         <!-- Row per affiancare i due box -->
         <div class="row custom-gap">
-            <!-- Informazioni sul Viaggio -->
+                        <!-- Informazioni sul Viaggio -->
             <div class="col-lg-6">
                 <div class="card info-box">
                     <div class="card-header">
                         <h4><i class="fas fa-info-circle"></i> Informazioni sul Viaggio</h4>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="titolo"><i class="fas fa-pen"></i> Nome dell'avventura</label>
                             <input type="text" class="form-control" id="titolo" name="titolo" value="{{ $viaggio->titolo }}" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="meta"><i class="fas fa-map-marker-alt"></i> Meta</label>
                             <input type="text" class="form-control" id="meta" name="meta" value="{{ $viaggio->meta }}" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="durata"><i class="fas fa-clock"></i> Durata (giorni)</label>
                             <input type="number" class="form-control" id="durata" name="durata" value="{{ $viaggio->durata }}" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="periodo"><i class="fas fa-calendar-alt"></i> Periodo</label>
                             <select class="form-control" id="periodo" name="periodo" required>
                                 <option value="" disabled>Seleziona un periodo</option>
@@ -51,11 +51,13 @@
                                 <option value="Inverno" {{ $viaggio->periodo == 'Inverno' ? 'selected' : '' }}>Inverno</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2 overlay-container">
                             <label for="dettagli"><i class="fas fa-info-circle"></i> Dettagli</label>
-                            <textarea class="form-control" id="dettagli" name="dettagli">{{ $viaggio->dettagli }}</textarea>
+                            <textarea class="form-control" id="dettagli" name="dettagli">{{ old('dettagli', $viaggio->dettagli ?? '') }}</textarea>
+                            <!-- Questo div fungerà da overlay per il contatore di caratteri -->
+                            <div class="char-count"> / 500 caratteri</div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="immagine"><i class="fas fa-image"></i> Carica Nuova Immagine</label>
                             <input type="file" class="form-control" id="immagine" name="immagine">
                         </div>

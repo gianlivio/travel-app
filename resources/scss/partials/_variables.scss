@@ -1,9 +1,11 @@
-$primary-color: hsl(212, 72%, 59%); // Blu rilassante
-$secondary-color: #50E3C2; // Verde acqua
-$accent-color: #F5A623; // Arancione caldo
-$background-color: #F0F0F0; // Grigio chiaro
-$text-color: #333333; // Grigio scuro
-$logo-color: #24D124; // Verde brillante
-$navbar-bg-color: $primary-color; // Utilizzare il colore primario per la navbar
+// _variables.scss
+
+$primary-color: #3B945E; // Verde salvia per la navbar
+$secondary-color: #F3E9D2; // Beige tenue per sfondi o dettagli
+$accent-color: #FF6F61; // Corallo per pulsanti e link attivi
+$background-color: #FAFAFA; // Grigio molto chiaro per lo sfondo principale
+$text-color: #adb1d6; // Grigio scuro per una buona leggibilità del testo
+$navbar-bg-color: $primary-color; // Usa il verde salvia per la navbar
 $navbar-text-color: #ffffff; // Testo bianco per contrasto
-$navbar-brand-color: $accent-color; // Colore accentato per il brand
+$footer-bg-color: #2C5F2D; // Verde scuro per il footer
+$footer-text-color: #ffffff; // Bianco per il testo del footer

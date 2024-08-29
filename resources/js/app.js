@@ -35,10 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (dettagliTextarea) {
+        // Creare un elemento per mostrare il contatore
         charCountDisplay = document.createElement('div');
-        charCountDisplay.id = 'char-count';
-        charCountDisplay.classList.add('text-muted', 'text-right', 'mt-1');
-        dettagliTextarea.parentNode.appendChild(charCountDisplay);
+        charCountDisplay.className = 'char-count';
+        dettagliTextarea.parentNode.insertBefore(charCountDisplay, dettagliTextarea.nextSibling);
+
+        // Imposta il valore iniziale del contatore di caratteri
         charCountDisplay.textContent = `0 / ${maxCharCount} caratteri`;
 
         dettagliTextarea.addEventListener('input', function() {
@@ -51,32 +53,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    let currentIndex = 0;
-    const images = [
-        '/images/a.jpg',
-        '/images/b.jpg',
-        '/images/c.jpg',
-        '/images/d.jpg',
-        '/images/e.jpg',
-        '/images/f.jpg',
-        '/images/g.jpg'
-    ];
-
-    function changeBackgroundImage() {
-        const body = document.body;
-        body.classList.remove('fade-background'); // Rimuovi la classe per resettare la transizione
-        setTimeout(() => {
-            body.style.backgroundImage = `url(${images[currentIndex]})`;
-            body.style.backgroundSize = 'cover';  // Copre l'intera area
-            body.style.backgroundRepeat = 'no-repeat';  // Non ripete l'immagine
-            body.style.backgroundPosition = 'center';  // Centra l'immagine
-            body.style.opacity = '1'; // Imposta l'opacità a 1 per assicurare che non siano opache
-            currentIndex = (currentIndex + 1) % images.length;
-            body.classList.add('fade-background'); // Aggiungi la classe dopo il cambiamento
-        }, 50); // Attendi un breve momento prima di riaggiungere la classe per la transizione
-    }
-
-    setInterval(changeBackgroundImage, 5000); // Cambia immagine ogni 5 secondi
-    changeBackgroundImage(); // Chiamata iniziale per impostare la prima immagine
 });
