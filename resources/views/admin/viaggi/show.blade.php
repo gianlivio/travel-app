@@ -20,6 +20,15 @@
     <p><strong>Periodo:</strong> {{ $viaggio->periodo }}</p>
     <p><strong>Dettagli:</strong> {{ $viaggio->dettagli }}</p>
 
+    <!-- Aggiunta della visualizzazione dell'itinerario -->
+    <h4>Itinerario:</h4>
+    <ul>
+        @foreach($viaggio->tappe as $tappa)
+            <li>{{ $tappa->descrizione }}</li>
+        @endforeach
+    </ul>
+    <!-- Fine della visualizzazione dell'itinerario -->
+
     <div class="mt-4">
         <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary">Torna Indietro</a>
         <a href="{{ route('admin.viaggi.edit', $viaggio->id) }}" class="btn btn-warning">Modifica</a>

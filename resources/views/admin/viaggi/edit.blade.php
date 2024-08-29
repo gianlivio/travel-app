@@ -41,22 +41,30 @@
         </div>
         
         <div class="form-group">
-            <label for="immagine">Carica Immagine</label>
+            <label for="immagine">Carica Nuova Immagine</label>
             <input type="file" class="form-control" id="immagine" name="immagine">
         </div>
-        
-        @if($viaggio->immagine)
-        <div class="mb-3">
-            <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" style="width: 200px; height: auto;">
+
+        <!-- Sezione Itinerario -->
+        <div id="itinerary-container">
+            <h4>Itinerario</h4>
+            @foreach($viaggio->tappe as $index => $tappa)
+                <div class="form-group">
+                    <label for="tappa_{{ $index + 1 }}">Tappa {{ $index + 1 }}</label>
+                    <input type="text" class="form-control" id="tappa_{{ $index + 1 }}" name="tappe[]" value="{{ $tappa->descrizione }}" placeholder="Descrizione Tappa {{ $index + 1 }}">
+                </div>
+            @endforeach
+            <button type="button" id="add-step-button" class="btn btn-secondary mb-3">Aggiungi Tappa</button>
         </div>
-         @endif
-        
+        <!-- Fine sezione Itinerario -->
+
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-            <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary">Torna Indietro</a>
+            <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary">Annulla</a>
         </div>
     </form>
 </div>
+
 @endsection
 @else
     <script>window.location.href = '{{ route('login') }}';</script>

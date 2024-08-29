@@ -4,6 +4,12 @@
 @section('content')
     <div class="container my-4">
         <h1 class="mb-4 text-center display-1 font-weight-bold">Diario di Viaggio</h1>
+
+        <div class="text-right mb-4">
+            <a href="{{ route('admin.viaggi.create') }}" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Crea Nuovo Viaggio
+            </a>
+        </div>
         
         <!-- Griglia di Card -->
         <div class="row">
@@ -17,56 +23,61 @@
                         @endif
                         <div class="card-body card-content">
                             <h5 class="card-title">
-                                <i></i> {{ $viaggio->titolo }}
+                                <i class="fas fa-map-signs"></i> {{ $viaggio->titolo }}
                             </h5>
                             <p class="card-text">
-                                <i class="fas fa-map-marker-alt"></i> <strong> Meta:</strong> {{ $viaggio->meta }}
+                                <i class="fas fa-map-marker-alt"></i> <strong>Meta:</strong> {{ $viaggio->meta }}
                             </p>
                             <p class="card-text">
-                                <i class="fas fa-clock"></i> <strong> Durata:</strong> {{ $viaggio->durata }} giorni
+                                <i class="fas fa-clock"></i> <strong>Durata:</strong> {{ $viaggio->durata }} giorni
                             </p>
                             <p class="card-text">
-                                <i class="fas fa-calendar-alt"></i> <strong> Periodo:</strong> {{ $viaggio->periodo }}
+                                <i class="fas fa-calendar-alt"></i> <strong>Periodo:</strong> {{ $viaggio->periodo }}
                             </p>
                             <p class="card-text">
-                                <i class="fas fa-align-left"></i> <strong> Dettagli:</strong> {{ $viaggio->dettagli }}
+                                <i class="fas fa-align-left"></i> <strong>Dettagli:</strong> {{ $viaggio->dettagli }}
                             </p>
+                            
+                            <!-- Aggiunta della visualizzazione dell'itinerario -->
+                            <p><strong>Itinerario:</strong>
+                                <ul>
+                                    @foreach($viaggio->tappe as $tappa)
+                                        <li>{{ $tappa->descrizione }}</li>
+                                    @endforeach
+                                </ul>
+                            </p>
+                            <!-- Fine della visualizzazione dell'itinerario -->
                         </div>
                         <div class="card-footer">
                             <div class="d-flex align-items-center justify-content-start">
+                                <!-- Icona Visualizza con stile -->
                                 <span class="crud-icon me-2" title="Visualizza">
-                                    <a href="{{ route('admin.viaggi.show', $viaggio->id) }}">
-                                        <i class="fas fa-eye"></i>
+                                    <a href="{{ route('admin.viaggi.show', $viaggio->id) }}" class="btn btn-link p-0 m-0 border-0">
+                                        <i class="fas fa-eye text-primary rounded-circle border border-primary p-2"></i>
                                     </a>
                                 </span>
+                                <!-- Icona Modifica con stile -->
                                 <span class="crud-icon me-2" title="Modifica">
-                                    <a href="{{ route('admin.viaggi.edit', $viaggio->id) }}">
-                                        <i class="fas fa-edit"></i>
+                                    <a href="{{ route('admin.viaggi.edit', $viaggio->id) }}" class="btn btn-link p-0 m-0 border-0">
+                                        <i class="fas fa-edit text-warning rounded-circle border border-warning p-2"></i>
                                     </a>
                                 </span>
-                                <span class="crud-icon" title="Elimina">
-                                    <form action="{{ route('admin.viaggi.destroy', $viaggio->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" style="background: none; border: none; padding: 0; color: inherit; cursor: pointer;">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </span>
+                                <!-- Icona Elimina con stile -->
+                                <form action="{{ route('admin.viaggi.destroy', $viaggio->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0 m-0 border-0" title="Elimina">
+                                        <i class="fas fa-trash-alt text-danger rounded-circle border border-danger p-2"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-
-        <div class="text-center mb-4">
-            <a href="{{ route('admin.viaggi.create') }}" class="btn btn-success">Crea Nuova Avventura</a>
-        </div>
     </div>
 @endsection
-@endauth
-
-@guest
+@else
     <script>window.location.href = '{{ route('login') }}';</script>
-@endguest
+@endauth
