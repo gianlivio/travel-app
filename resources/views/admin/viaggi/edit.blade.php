@@ -79,7 +79,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <button type="button" id="add-step-button" class="btn btn-secondary mb-3"><i class="fas fa-plus"></i> Aggiungi Tappa</button>
+                        <button type="button" id="add-step-button" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Aggiungi Tappa</button>
                     </div>
                 </div>
             </div>

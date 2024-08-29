@@ -57,7 +57,7 @@
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     @foreach($viaggio->tappe as $tappa)
-                        <li class="list-group-item"><i class="fas fa-map-signs"></i> {{ $tappa->descrizione }}</li>
+                        <li class="list-group-item"> {{ $tappa->descrizione }}</li>
                     @endforeach
                 </ul>
             </div>
