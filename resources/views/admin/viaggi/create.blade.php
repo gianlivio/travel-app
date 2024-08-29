@@ -3,9 +3,12 @@
 
 @section('content')
 
-
+<div class="video-background">
+    <video autoplay loop muted playsinline>
+        <source src="{{ asset('videos/loop3.mp4') }}" type="video/mp4">
+    </video>
+</div>
 <div class="header-section">
-    <h1 class="display-4 text-center mb-5">Crea Viaggio</h1>
     <h3> Qui puoi pianificare la tua prossima Avventura</h3>
 </div>
 

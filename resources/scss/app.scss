@@ -90,32 +90,74 @@ h1, .card-title {
 }
 
 .header-section {
-    background-color: hsl(212, 72%, 59%); ;
+    background-color: hsl(212, 72%, 59%);
     color: white;
     padding: 2rem;
     text-align: center;
 
     h1 {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 100;  // Uso del peso più sottile
-        font-size: 4rem;
-        color: #333;
+        font-family: 'Bungee', sans-serif;  // Font stile anni '80, molto spesso e spigoloso
+        font-weight: 700;  // Usa un peso audace
+        font-size: 5rem;
         text-align: center;
         margin-bottom: 20px;
-        background-clip: text;
         
+        // Proprietà per il gradient e il clipping
+        background: linear-gradient(45deg, #10f308, #f8032c);  // Definisci il gradient
+        -webkit-background-clip: text;  // Supporto per WebKit (Safari, Chrome)
+        background-clip: text;  // Standard
+        color: transparent;  // Rende il testo trasparente per mostrare il gradient
+        -webkit-text-fill-color: transparent;  // Per supportare WebKit
+        
+        // Animazione del gradient
+        animation: gradient-animation 3s ease-in-out infinite;  
     }
-    
-    // Stili per h3 (specifici alla classe della sezione header, per evitare collisioni globali)
-     h3 {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 100;
+
+    h3 {
+        font-family: 'Raleway', sans-serif;  
+        font-style: italic;  
         font-size: 2rem;
-        color: #555;
+        color: #F5A623;
         text-align: center;
         margin-bottom: 15px;
     }
+}
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;  // Mette il video dietro al contenuto
+    overflow: hidden;
+}
 
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  // Assicura che il video riempia l'area senza distorsioni
+}
+
+.header-section {
+    position: relative;  // Assicura che i titoli siano posizionati sopra il video
+    z-index: 1;  // Metti la sezione header sopra il video
+    color: white;  // Assicurati che il testo sia visibile sopra il video
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.5);  // Opzionale: sfondo semitrasparente per migliorare la leggibilità del testo
+}
+
+// Definizione dell'animazione
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 
