@@ -1,9 +1,16 @@
 @auth
 @extends('layouts.app')
 
+
 @section('content')
-    <div class="container my-4">
+
+    <div class="header-section">
         <h1 class="mb-4 text-center display-1 font-weight-bold">Diario di Viaggio</h1>
+        <h3>La lista delle tue avventure passate e future</h3>
+    </div>
+
+    <div class="container my-4">
+        
 
         <div class="text-right mb-4">
             <a href="{{ route('admin.viaggi.create') }}" class="btn btn-success">

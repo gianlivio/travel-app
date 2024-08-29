@@ -2,8 +2,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+<div class="header-section">
+    <h1 class="display-4 text-center mb-5">Crea Viaggio</h1>
+    <h3> Qui puoi pianificare la tua prossima Avventura</h3>
+</div>
+
 <div class="container my-4">
-    <h1 class="display-4 text-center mb-5">Crea Nuovo Viaggio</h1>
+    
 
     <form action="{{ route('admin.viaggi.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

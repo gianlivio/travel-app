@@ -3,8 +3,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="header-section">
+    <h1 class="display-4 text-center mb-5">Dettagli del viaggio presso:</h1>
+    <h3>{{ $viaggio->titolo }}</h3>
+</div>
+
 <div class="container my-4">
-    <h1 class="display-4 text-center mb-5">{{ $viaggio->titolo }}</h1>
     
     @if($viaggio->immagine)
         <div class="text-center mb-4">

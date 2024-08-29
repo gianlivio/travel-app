@@ -2,8 +2,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="header-section">
+    <h1 class="display-4 text-center mb-5">Modifica Dettagli</h1>
+    <h3> Qui puoi gestire i dettagli del tuo viaggio</h3>
+</div>
+
 <div class="container my-4">
-    <h1 class="display-4 text-center mb-5">Modifica Avventura</h1>
+    
 
     <form action="{{ route('admin.viaggi.update', $viaggio->id) }}" method="POST" enctype="multipart/form-data">
         @csrf

@@ -89,6 +89,19 @@ h1, .card-title {
     color: $primary-color; /* Usa il colore primario per i titoli */
 }
 
+.header-section {
+    background-color: black;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+
+    h3 {
+        color: red;
+        font-family: "Montserrat", sans-serif;
+        
+    }
+}
+
 .card {
     width: 100%;
     max-width: 600px;
