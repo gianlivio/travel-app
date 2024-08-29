@@ -43,12 +43,20 @@
             <input type="file" class="form-control" id="immagine" name="immagine">
         </div>
 
+        <!-- Sezione Itinerario -->
+        <div id="itinerary-container">
+            <h4>Itinerario</h4>
+            <button type="button" id="add-step-button" class="btn btn-secondary mb-3">Aggiungi Tappa</button>
+        </div>
+        <!-- Fine sezione Itinerario -->
+
         <div class="mt-4">
             <button type="submit" class="btn btn-success">Crea Viaggio</button>
-            <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary">Torna Indietro</a>
+            <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary">Annulla</a>
         </div>
     </form>
 </div>
+
 @endsection
 @else
     <script>window.location.href = '{{ route('login') }}';</script>
