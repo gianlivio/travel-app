@@ -9,16 +9,16 @@
         @csrf
 
         <!-- Row per affiancare i due box -->
-        <div class="row">
+        <div class="row custom-gap">
             <!-- Informazioni sul Viaggio -->
-            <div class="col-lg-6 mb-4">
-                <div class="card">
+            <div class="col-lg-6">
+                <div class="card info-box">
                     <div class="card-header">
                         <h4><i class="fas fa-info-circle"></i> Informazioni sul Viaggio</h4>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="titolo"><i class="fas fa-heading"></i> Nome dell'avventura</label>
+                            <label for="titolo"><i class="fas fa-pen"></i> Nome dell'avventura</label>
                             <input type="text" class="form-control" id="titolo" name="titolo" value="{{ old('titolo') }}" required>
                         </div>
                         <div class="form-group">
@@ -52,8 +52,8 @@
             </div>
 
             <!-- Itinerario -->
-            <div class="col-lg-6 mb-4">
-                <div class="card">
+            <div class="col-lg-6">
+                <div class="card info-box">
                     <div class="card-header">
                         <h4><i class="fas fa-route"></i> Itinerario</h4>
                     </div>
@@ -78,19 +78,6 @@
         </div>
     </form>
 </div>
-
-<!-- Script per gestire l'aggiunta di tappe -->
-<script>
-    let tappaCount = 1;
-    document.getElementById('add-step-button').addEventListener('click', function() {
-        tappaCount++;
-        const newStep = document.createElement('div');
-        newStep.classList.add('form-group');
-        newStep.innerHTML = `<label for="tappa_${tappaCount}">Tappa ${tappaCount}</label>
-                            <input type="text" class="form-control" id="tappa_${tappaCount}" name="tappe[]" placeholder="Descrizione Tappa ${tappaCount}">`;
-        document.getElementById('itinerary-container').appendChild(newStep);
-    });
-</script>
 
 @endsection
 @endauth
