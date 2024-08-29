@@ -5,7 +5,7 @@
 
 <div class="video-background">
     <video autoplay loop muted playsinline>
-        <source src="{{ asset('videos/loop2.mp4') }}" type="video/mp4">
+        <source src="{{ asset('videos/loop3.mp4') }}" type="video/mp4">
     </video>
 </div> 
 
