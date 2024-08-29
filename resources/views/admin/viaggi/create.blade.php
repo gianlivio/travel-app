@@ -68,11 +68,11 @@
                         <div id="itinerary-container">
                             <!-- Aggiunta tappe dinamiche -->
                             <div class="form-group">
-                                <label for="tappa_1">Tappa 1</label>
-                                <input type="text" class="form-control" id="tappa_1" name="tappe[]" placeholder="Descrizione Tappa 1">
+                                <label class="mb-3" for="tappa_1">Tappa 1</label>
+                                <input type="text" class="form-control mb-3" id="tappa_1" name="tappe[]" placeholder="Descrizione Tappa 1">
                             </div>
                         </div>
-                        <button type="button" id="add-step-button" class="btn btn-secondary mb-3"><i class="fas fa-plus"></i> Aggiungi Tappa</button>
+                        <button type="button" id="add-step-button" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Aggiungi Tappa</button>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
 
         <!-- Pulsanti di Azione -->
         <div class="text-center">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Crea Viaggio</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salva</button>
             <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary"><i class="fas fa-times"></i> Annulla</a>
         </div>
     </form>

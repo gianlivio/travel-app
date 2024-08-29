@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="header-section">
-    <h1 class="display-4 text-center mb-5">Modifica Dettagli</h1>
+    <h1 class="display-4 text-center mb-5">Modifica Viaggio</h1>
     <h3> Qui puoi gestire i dettagli del tuo viaggio</h3>
 </div>
 
@@ -70,7 +70,7 @@
                             @foreach($viaggio->tappe as $index => $tappa)
                                 <div class="form-group">
                                     <label for="tappa_{{ $index + 1 }}">Tappa {{ $index + 1 }}</label>
-                                    <input type="text" class="form-control" id="tappa_{{ $index + 1 }}" name="tappe[]" value="{{ $tappa->descrizione }}" placeholder="Descrizione Tappa {{ $index + 1 }}">
+                                    <input type="text" class="form-control mb-3" id="tappa_{{ $index + 1 }}" name="tappe[]" value="{{ $tappa->descrizione }}" placeholder="Descrizione Tappa {{ $index + 1 }}">
                                 </div>
                             @endforeach
                         </div>
@@ -82,7 +82,7 @@
 
         <!-- Pulsanti di Azione -->
         <div class="text-center">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salva Modifiche</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salva </button>
             <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary"><i class="fas fa-times"></i> Annulla</a>
         </div>
     </form>

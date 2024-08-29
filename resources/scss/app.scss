@@ -90,17 +90,34 @@ h1, .card-title {
 }
 
 .header-section {
-    background-color: black;
+    background-color: hsl(212, 72%, 59%); ;
     color: white;
     padding: 2rem;
     text-align: center;
 
-    h3 {
-        color: red;
-        font-family: "Montserrat", sans-serif;
+    h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 100;  // Uso del peso più sottile
+        font-size: 4rem;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+        background-clip: text;
         
     }
+    
+    // Stili per h3 (specifici alla classe della sezione header, per evitare collisioni globali)
+     h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 100;
+        font-size: 2rem;
+        color: #555;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
 }
+
 
 .card {
     width: 100%;
