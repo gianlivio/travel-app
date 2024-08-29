@@ -2,7 +2,6 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 @import 'partials/variables';
 
-
 // Navbar Styles
 .navbar {
     background-color: $navbar-bg-color;
@@ -30,7 +29,26 @@
     }
 }
 
+// Stile per la scrollbar del box Itinerario
+.itinerary-scroll {
+    max-height: 300px; 
+    overflow-y: auto;    
+    overflow-x: hidden;    
+    padding-right: 15px; 
+}
 
+// Stile per ingrandire la textarea
+#dettagli {
+    min-height: 100px; // Aumentato per meglio visualizzare i dettagli
+    resize: vertical; 
+}
+
+// Stile per il box Informazioni sul Viaggio
+.info-box {
+    min-height: 550px; // Altezza aumentata per includere tutti i campi e la sezione immagine
+    height: auto;    
+    overflow-y: auto; // Permette lo scroll se il contenuto supera l'altezza minima
+}
 
 // Sfondo del corpo con immagine del logo
 body {
@@ -65,13 +83,14 @@ h1, .card-title {
 }
 
 .card {
-    width: 400px; // Larghezza fissa aumentata
-    height: 500px; // Altezza fissa aumentata
+    width: 100%; // Larghezza fissa adattata
+    max-width: 600px; // Larghezza massima per una visualizzazione migliore
+    min-height: 500px; // Altezza minima
     overflow: hidden; // Nascondere il contenuto che eccede
     background-color: $secondary-color; // Colore di sfondo della card
     color: $text-color;
-    margin-bottom: 10px; // Ridotto per avvicinare le card
-    padding: 15px; // Padding interno per il contenuto
+    margin-bottom: 20px; // Aumentato per separare meglio le card
+    padding: 20px; // Aumento del padding interno per il contenuto
     border-radius: 8px; // Bordo arrotondato
 }
 
@@ -109,18 +128,13 @@ h1, .card-title {
     transition: background-color 0.3s; 
 }
 .crud-icon a {
-       
     text-decoration: none; /* Rimuove la sottolineatura dei link */
 }
-
 
 .row .col-md-4 {
     padding-left: 10px; 
     padding-right: 10px;
 }
-
-
-
 
 /* Footer Styles */
 footer {
