@@ -52,29 +52,28 @@
 
 // Sfondo del corpo con immagine del logo
 body {
-    background-color: $background-color; /* Nuovo colore di sfondo */
     font-family: 'Poppins', sans-serif;
     color: $text-color; /* Colore del testo */
     position: relative;
     overflow-x: hidden; // Evitare lo scroll orizzontale indesiderato
 }
 
-// Aggiungere il logo in trasparenza
+// Aggiungere il logo in trasparenza come sfondo
 body::before {
     content: '';
-    background-image: url('/images/travel.png'); // Percorso relativo all'immagine del logo
-    background-size: 100%; // Dimensione del logo
-    background-repeat: no-repeat;
-    background-position: center; // Centra il logo sullo schermo
-    opacity: 0.1; // Trasparenza del logo
-    position: absolute;
+    position: absolute;  // Posiziona il pseudo-elemento in modo assoluto rispetto al body
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; // Assicurarsi che sia dietro il contenuto
+    width: 100%;  // Assicura che copra l'intera larghezza della pagina
+    height: 100%;  // Assicura che copra l'intera altezza della pagina
+    background-size: cover;  // L'immagine copre l'intera area visibile
+    background-repeat: no-repeat;  // Impedisce la ripetizione delle immagini
+    background-attachment: fixed;  // L'immagine resta fissa quando si scorre la pagina
+    background-position: center;  // Centra l'immagine
+    transition: background-image 1s ease-in-out;  // Transizione morbida per il cambio dell'immagine
+    z-index: -1;  // Assicurarsi che sia dietro il contenuto
+    opacity: 0.1;  // Aggiunge un effetto di trasparenza (se desiderato)
 }
-
 // Stili dei titoli e card
 h1, .card-title {
     font-family: 'Roboto Slab', serif;
@@ -87,11 +86,12 @@ h1, .card-title {
     max-width: 600px; // Larghezza massima per una visualizzazione migliore
     min-height: 500px; // Altezza minima
     overflow: hidden; // Nascondere il contenuto che eccede
-    background-color: $secondary-color; // Colore di sfondo della card
+    background-color: rgba(159, 238, 227, 0.3); // Sfondo bianco semi-trasparente
     color: $text-color;
     margin-bottom: 20px; // Aumentato per separare meglio le card
     padding: 20px; // Aumento del padding interno per il contenuto
     border-radius: 8px; // Bordo arrotondato
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombra leggera per far risaltare le card
 }
 
 .card-img-top {
