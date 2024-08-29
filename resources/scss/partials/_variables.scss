@@ -1,9 +1,9 @@
-$primary-color: #020701; 
-$secondary-color: #b7f50c; 
-$accent-color: #da8907; 
-$background-color: #f1f391; 
-$text-color: #2f4f4f; 
-$logo-color: #24d124;
-$navbar-bg-color: #070707;
-$navbar-text-color: #ffffff;
-$navbar-brand-color: #e5ff00;
+$primary-color: #4A90E2; // Blu rilassante
+$secondary-color: #50E3C2; // Verde acqua
+$accent-color: #F5A623; // Arancione caldo
+$background-color: #F0F0F0; // Grigio chiaro
+$text-color: #333333; // Grigio scuro
+$logo-color: #24D124; // Verde brillante
+$navbar-bg-color: $primary-color; // Utilizzare il colore primario per la navbar
+$navbar-text-color: #ffffff; // Testo bianco per contrasto
+$navbar-brand-color: $accent-color; // Colore accentato per il brand

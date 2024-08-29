@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 itineraryContainer.appendChild(newStep);
 
-                // Aggiungere la classe per la scrollbar dopo la quinta tappa
                 if (tappaCount > 5) {
                     itineraryContainer.classList.add('itinerary-scroll');
                 }
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Controllo del contatore di caratteri per la textarea dettagli
     if (dettagliTextarea) {
         charCountDisplay = document.createElement('div');
         charCountDisplay.id = 'char-count';
@@ -55,24 +53,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let currentIndex = 0;
-const images = [
-    '/images/a.jpg',
-    '/images/b.jpg',
-    '/images/c.jpg',
-    '/images/d.jpg',
-    '/images/e.jpg',
-    '/images/f.jpg',
-    '/images/g.jpg'
-];
+    const images = [
+        '/images/a.jpg',
+        '/images/b.jpg',
+        '/images/c.jpg',
+        '/images/d.jpg',
+        '/images/e.jpg',
+        '/images/f.jpg',
+        '/images/g.jpg'
+    ];
 
-function changeBackgroundImage() {
-    document.body.style.backgroundImage = `url(${images[currentIndex]})`;
-    document.body.style.backgroundSize = 'cover';  // Copre l'intera area
-    document.body.style.backgroundRepeat = 'no-repeat';  // Non ripete l'immagine
-    document.body.style.backgroundPosition = 'center';  // Centra l'immagine
-    currentIndex = (currentIndex + 1) % images.length;
-}
+    function changeBackgroundImage() {
+        const body = document.body;
+        body.classList.remove('fade-background'); // Rimuovi la classe per resettare la transizione
+        setTimeout(() => {
+            body.style.backgroundImage = `url(${images[currentIndex]})`;
+            body.style.backgroundSize = 'cover';  // Copre l'intera area
+            body.style.backgroundRepeat = 'no-repeat';  // Non ripete l'immagine
+            body.style.backgroundPosition = 'center';  // Centra l'immagine
+            body.style.opacity = '1'; // Imposta l'opacità a 1 per assicurare che non siano opache
+            currentIndex = (currentIndex + 1) % images.length;
+            body.classList.add('fade-background'); // Aggiungi la classe dopo il cambiamento
+        }, 50); // Attendi un breve momento prima di riaggiungere la classe per la transizione
+    }
 
-setInterval(changeBackgroundImage, 5000);  // Cambia immagine ogni 5 secondi
+    setInterval(changeBackgroundImage, 5000); // Cambia immagine ogni 5 secondi
     changeBackgroundImage(); // Chiamata iniziale per impostare la prima immagine
 });

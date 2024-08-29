@@ -11,7 +11,7 @@
         margin-left: 10px;
 
         &:hover {
-            color: $navbar-brand-color;
+            color: lighten($navbar-brand-color, 20%); // Schiarisce il colore al passaggio del mouse
         }
     }
 
@@ -48,14 +48,23 @@
     min-height: 550px; // Altezza aumentata per includere tutti i campi e la sezione immagine
     height: auto;    
     overflow-y: auto; // Permette lo scroll se il contenuto supera l'altezza minima
+    background-color: $background-color; // Usa il colore di sfondo definito
 }
 
 // Sfondo del corpo con immagine del logo
 body {
     font-family: 'Poppins', sans-serif;
     color: $text-color; /* Colore del testo */
+    background-color: $background-color; /* Usa il colore di sfondo definito */
     position: relative;
     overflow-x: hidden; // Evitare lo scroll orizzontale indesiderato
+    &.fade-background {
+        transition: background-image 1s ease-in-out;
+    }
+}
+
+.fade-background {
+    transition: background-image 1s ease-in-out; // Aggiungi una transizione graduale di 1 secondo
 }
 
 // Aggiungere il logo in trasparenza come sfondo
@@ -72,30 +81,31 @@ body::before {
     z-index: -1;
     transition: background-image 1s ease-in-out;
 }
+
 // Stili dei titoli e card
 h1, .card-title {
     font-family: 'Roboto Slab', serif;
     font-weight: bold;
-    color: $primary-color; /* Colore per titoli */
+    color: $primary-color; /* Usa il colore primario per i titoli */
 }
 
 .card {
-    width: 100%; // Larghezza fissa adattata
-    max-width: 600px; // Larghezza massima per una visualizzazione migliore
-    min-height: 500px; // Altezza minima
-    overflow: hidden; // Nascondere il contenuto che eccede
-    background-color: rgba(159, 238, 227, 0.3); // Sfondo bianco semi-trasparente
+    width: 100%;
+    max-width: 600px;
+    min-height: 500px;
+    overflow: hidden;
+    background-color: rgba(74, 144, 226, 0.1); // Usa un colore trasparente derivato dal primario
     color: $text-color;
-    margin-bottom: 20px; // Aumentato per separare meglio le card
-    padding: 20px; // Aumento del padding interno per il contenuto
-    border-radius: 8px; // Bordo arrotondato
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombra leggera per far risaltare le card
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-img-top {
-    height: 250px; // Maggiore altezza disponibile per l'immagine
+    height: 250px;
     object-fit: cover;
-    border-top-left-radius: 8px; // Arrotonda gli angoli superiori
+    border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
@@ -105,8 +115,8 @@ h1, .card-title {
 }
 
 .card-content {
-    max-height: 200px; // Altezza massima per il contenuto
-    overflow-y: auto; // Aggiunge uno scroll verticale se il contenuto eccede
+    max-height: 200px;
+    overflow-y: auto;
     padding-bottom: 50px; 
 }
 
@@ -116,7 +126,6 @@ h1, .card-title {
     align-items: center;
     background: none;
     padding: 5px;
-    // Sfondo semi-trasparente per evidenziarlo
 }
 
 .card-footer .crud-icon {    
@@ -125,8 +134,9 @@ h1, .card-title {
     cursor: pointer;
     transition: background-color 0.3s; 
 }
+
 .crud-icon a {
-    text-decoration: none; /* Rimuove la sottolineatura dei link */
+    text-decoration: none;
 }
 
 .row .col-md-4 {
@@ -136,7 +146,7 @@ h1, .card-title {
 
 /* Footer Styles */
 footer {
-    background-color: #070707;
+    background-color: $navbar-bg-color;
     color: white;
     padding: 4rem 1rem;
     text-align: center;
