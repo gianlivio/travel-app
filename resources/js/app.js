@@ -54,24 +54,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Carosello delle immagini di sfondo
-    const images = [
-        '/images/a.jpg', // Percorso delle tue immagini
-        '/images/b.jpg',
-        '/images/c.jpg',
-        '/images/d.jpg',
-        '/images/e.jpg',
-        '/images/f.jpg',
-        '/images/g.jpg'
-    ];
-
     let currentIndex = 0;
+const images = [
+    '/images/a.jpg',
+    '/images/b.jpg',
+    '/images/c.jpg',
+    '/images/d.jpg',
+    '/images/e.jpg',
+    '/images/f.jpg',
+    '/images/g.jpg'
+];
 
-    function changeBackgroundImage() {
-        document.body.style.backgroundImage = `url(${images[currentIndex]})`;
-        currentIndex = (currentIndex + 1) % images.length;
-    }
+function changeBackgroundImage() {
+    document.body.style.backgroundImage = `url(${images[currentIndex]})`;
+    document.body.style.backgroundSize = 'cover';  // Copre l'intera area
+    document.body.style.backgroundRepeat = 'no-repeat';  // Non ripete l'immagine
+    document.body.style.backgroundPosition = 'center';  // Centra l'immagine
+    currentIndex = (currentIndex + 1) % images.length;
+}
 
-    setInterval(changeBackgroundImage, 10000); // Cambia immagine ogni 10 secondi
+setInterval(changeBackgroundImage, 5000);  // Cambia immagine ogni 5 secondi
     changeBackgroundImage(); // Chiamata iniziale per impostare la prima immagine
 });

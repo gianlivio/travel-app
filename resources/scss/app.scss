@@ -61,18 +61,16 @@ body {
 // Aggiungere il logo in trasparenza come sfondo
 body::before {
     content: '';
-    position: absolute;  // Posiziona il pseudo-elemento in modo assoluto rispetto al body
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;  // Assicura che copra l'intera larghezza della pagina
-    height: 100%;  // Assicura che copra l'intera altezza della pagina
-    background-size: cover;  // L'immagine copre l'intera area visibile
-    background-repeat: no-repeat;  // Impedisce la ripetizione delle immagini
-    background-attachment: fixed;  // L'immagine resta fissa quando si scorre la pagina
+    width: 100%;
+    height: 100%;
+    background-size: cover;  // Assicura che l'immagine copra l'intera area
+    background-repeat: no-repeat;  // Previene la ripetizione dell'immagine
     background-position: center;  // Centra l'immagine
-    transition: background-image 1s ease-in-out;  // Transizione morbida per il cambio dell'immagine
-    z-index: -1;  // Assicurarsi che sia dietro il contenuto
-    opacity: 0.1;  // Aggiunge un effetto di trasparenza (se desiderato)
+    z-index: -1;
+    transition: background-image 1s ease-in-out;
 }
 // Stili dei titoli e card
 h1, .card-title {
