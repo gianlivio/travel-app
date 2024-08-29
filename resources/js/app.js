@@ -53,4 +53,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Carosello delle immagini di sfondo
+    const images = [
+        '/images/a.jpg', // Percorso delle tue immagini
+        '/images/b.jpg',
+        '/images/c.jpg',
+        '/images/d.jpg',
+        '/images/e.jpg',
+        '/images/f.jpg',
+        '/images/g.jpg'
+    ];
+
+    let currentIndex = 0;
+
+    function changeBackgroundImage() {
+        document.body.style.backgroundImage = `url(${images[currentIndex]})`;
+        currentIndex = (currentIndex + 1) % images.length;
+    }
+
+    setInterval(changeBackgroundImage, 10000); // Cambia immagine ogni 10 secondi
+    changeBackgroundImage(); // Chiamata iniziale per impostare la prima immagine
 });
