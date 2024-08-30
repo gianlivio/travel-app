@@ -14,7 +14,6 @@
 </div>
 
 <div class="container my-4">
-    
 
     <form action="{{ route('admin.viaggi.update', $viaggio->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -88,6 +87,8 @@
                                                     <input type="text" class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]" value="{{ old("giornate.$giornataIndex.tappe.$tappaIndex.titolo", $tappa->titolo) }}" placeholder="Titolo Tappa">
                                                     <textarea class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][descrizione]" placeholder="Descrizione Tappa">{{ old("giornate.$giornataIndex.tappe.$tappaIndex.descrizione", $tappa->descrizione) }}</textarea>
                                                     <input type="hidden" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][id]" value="{{ $tappa->id }}">
+                                                    <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
+                                                    <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -106,6 +107,8 @@
                                             <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
                                             <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
                                             <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                                            <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
+                                            <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="0">Aggiungi Tappa</button>

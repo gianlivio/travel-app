@@ -23,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
+        // Aggiungi l'evento click per il primo bottone "Rimuovi Tappa"
+        giornateContainer.querySelectorAll('.remove-tappa-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const giornataElement = button.closest('.giornata');
+                button.closest('.form-group').remove();
+                reorderTappe(giornataElement); // Aggiorna gli indici delle tappe
+            });
+        });
+
         addGiornataButton.addEventListener('click', function() {
             if (giornataCount < maxDays) {
                 const giornataIndex = giornataCount;
@@ -39,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <label for="giornate[${giornataIndex}][tappe][0][titolo]">Tappa 1</label>
                             <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][titolo]" placeholder="Titolo Tappa">
                             <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                            <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="${giornataIndex}">Aggiungi Tappa</button>
@@ -48,6 +58,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const addTappaButton = newGiornata.querySelector('.add-tappa-button');
                 addTappaButton.addEventListener('click', function() {
                     addTappa(giornataIndex, newGiornata.querySelector('.tappe-container'));
+                });
+
+                // Aggiungi l'evento click per i nuovi bottoni "Rimuovi Tappa"
+                newGiornata.querySelectorAll('.remove-tappa-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const giornataElement = button.closest('.giornata');
+                        button.closest('.form-group').remove();
+                        reorderTappe(giornataElement); // Aggiorna gli indici delle tappe
+                    });
                 });
             } else {
                 alert('Puoi aggiungere fino a 10 giornate per viaggio.');
@@ -83,10 +102,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 <label for="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]">Tappa ${tappaCount + 1}</label>
                 <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]" placeholder="Titolo Tappa">
                 <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
             `;
             tappaContainer.appendChild(newTappa);
+
+            // Aggiungi l'evento click per il nuovo bottone "Rimuovi Tappa"
+            newTappa.querySelector('.remove-tappa-button').addEventListener('click', function() {
+                newTappa.remove();
+                reorderTappe(tappaContainer.closest('.giornata')); // Aggiorna gli indici delle tappe
+            });
         } else {
             alert('Puoi aggiungere fino a 10 tappe per giornata.');
         }
+    }
+
+    // Funzione per riordinare le tappe
+    function reorderTappe(giornataElement) {
+        const tappe = giornataElement.querySelectorAll('.tappe-container .form-group');
+        tappe.forEach((tappa, index) => {
+            const labels = tappa.querySelectorAll('label');
+            labels.forEach(label => {
+                label.innerText = `Tappa ${index + 1}`;
+            });
+
+            const inputs = tappa.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                if (input.name.includes('[titolo]')) {
+                    input.name = `giornate[${giornataElement.dataset.giornataIndex}][tappe][${index}][titolo]`;
+                } else if (input.name.includes('[descrizione]')) {
+                    input.name = `giornate[${giornataElement.dataset.giornataIndex}][tappe][${index}][descrizione]`;
+                }
+            });
+        });
     }
 });
