@@ -50,25 +50,27 @@
         <!-- Fine della sezione informazioni -->
 
         <!-- Inizio della sezione itinerario -->
-        <div class="card flex-fill" style="max-width: 500px;">
+        <div class="card info-box"> <!-- Usa la classe info-box per mantenere lo stile -->
             <div class="card-header">
                 <h4><i class="fas fa-route"></i> Itinerario</h4>
             </div>
             <div class="card-body">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group itinerary-list">
                     @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
                         @foreach($viaggio->giornate as $giornata)
                             <li class="list-group-item">
-                                <strong>Data: {{ $giornata->data }}</strong>
-                                <ul>
-                                    @if($giornata->tappe && $giornata->tappe->isNotEmpty())
-                                        @foreach($giornata->tappe as $tappa)
-                                            <li>{{ $tappa->descrizione }}</li>
-                                        @endforeach
-                                    @else
-                                        <li>Nessuna tappa disponibile</li>
-                                    @endif
-                                </ul>
+                                <div class="giornata-details">
+                                    <span class="giornata-date"><i class="fas fa-calendar-day"></i> {{ $giornata->data }}</span>
+                                    <ul class="list-group tappe-list">
+                                        @if($giornata->tappe && $giornata->tappe->isNotEmpty())
+                                            @foreach($giornata->tappe as $tappa)
+                                                <li class="list-group-item tappa-item">{{ $tappa->titolo }}: {{ $tappa->descrizione }}</li>
+                                            @endforeach
+                                        @else
+                                            <li class="list-group-item">Nessuna tappa disponibile</li>
+                                        @endif
+                                    </ul>
+                                </div>
                             </li>
                         @endforeach
                     @else
@@ -78,7 +80,7 @@
             </div>
         </div>
         <!-- Fine della sezione itinerario -->
-    </div>
+            </div>
 
     <div class="mt-4 text-center">
         <a href="{{ route('admin.viaggi.edit', $viaggio->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifica</a>

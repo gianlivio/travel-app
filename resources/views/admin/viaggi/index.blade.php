@@ -40,29 +40,37 @@
                         </p>
 
                         <!-- Aggiunta della visualizzazione dell'itinerario -->
-                        <p><strong>Itinerario:</strong>
-                            <ul>
-                                @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
-                                    @foreach($viaggio->giornate as $giornata)
-                                        <li>
-                                            <strong>Data: {{ $giornata->data }}</strong>
-                                            <ul>
-                                                @if($giornata->tappe && $giornata->tappe->isNotEmpty())
-                                                    @foreach($giornata->tappe as $tappa)
-                                                        <li>{{ $tappa->descrizione }}</li>
-                                                    @endforeach
-                                                @else
-                                                    <li>Nessuna tappa disponibile</li>
-                                                @endif
-                                            </ul>
-                                        </li>
-                                    @endforeach
-                                @else
-                                    <li>Nessuna giornata disponibile</li>
-                                @endif
-                            </ul>
-                        </p>
-                        <!-- Fine della visualizzazione dell'itinerario -->
+                        <!-- Inizio della sezione itinerario -->
+                        <div class="card info-box"> <!-- Usa la classe info-box per mantenere lo stile -->
+                            <div class="card-header">
+                                <h4><i class="fas fa-route"></i> Itinerario</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group itinerary-list">
+                                    @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
+                                        @foreach($viaggio->giornate as $giornata)
+                                            <li class="list-group-item">
+                                                <div class="giornata-details">
+                                                    <span class="giornata-date"><i class="fas fa-calendar-day"></i> {{ $giornata->data }}</span>
+                                                    <ul class="list-group tappe-list">
+                                                        @if($giornata->tappe && $giornata->tappe->isNotEmpty())
+                                                            @foreach($giornata->tappe as $tappa)
+                                                                <li class="list-group-item tappa-item">{{ $tappa->titolo }}: {{ $tappa->descrizione }}</li>
+                                                            @endforeach
+                                                        @else
+                                                            <li class="list-group-item">Nessuna tappa disponibile</li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li class="list-group-item">Nessuna giornata disponibile</li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Fine della sezione itinerario -->
                     </div>
                     <div class="card-footer">
                         <div class="d-flex align-items-center justify-content-start">

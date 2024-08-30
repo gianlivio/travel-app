@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group mb-2">
                             <label for="periodo"><i class="fas fa-calendar-alt"></i> Periodo</label>
-                            <select class="form-control" id="periodo" name="periodo" required>
+                            <select type="periodo" class="form-control" id="periodo" name="periodo" required>
                                 <option value="" disabled {{ old('periodo') ? '' : 'selected' }}>Seleziona un periodo</option>
                                 <option value="Estate" {{ old('periodo') == 'Estate' ? 'selected' : '' }}>Estate</option>
                                 <option value="Autunno" {{ old('periodo') == 'Autunno' ? 'selected' : '' }}>Autunno</option>
@@ -56,7 +56,6 @@
                             <div class="char-count"> / 500 caratteri</div>
                         </div>
                         <div class="form-group mb-2">
-                            <label for="immagine"><i class="fas fa-image"></i> Carica Nuova Immagine</label>
                             <input type="file" class="form-control" id="immagine" name="immagine">
                         </div>
                     </div>
@@ -80,13 +79,15 @@
                                     <div class="form-group">
                                         <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
                                         <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
-                                        <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                                        <textarea type="text" class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
                                     </div>
+                                     <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
+                                     <button type="button" class="btn btn-primary remove-tappa-button mb-2">Rimuovi Tappa</button>
                                 </div>
-                                <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="0">Aggiungi Tappa</button>
+                                <button type="button" class="btn btn-primary add-tappa-button" data-giornata-index="0">Aggiungi Tappa</button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary mt-3" id="add-giornata-button"><i class="fas fa-plus"></i> Aggiungi Giornata</button>
+                        <button type="button" class="btn btn-primary mb-2" id="add-giornata-button"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
