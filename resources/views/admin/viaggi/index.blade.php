@@ -10,12 +10,7 @@
 </div>
 
 <div class="container my-4">
-    <!-- Contenuto esistente non modificato -->
-    <div class="text-right mb-4">
-        <a href="{{ route('admin.viaggi.create') }}" class="btn btn-success">
-            <i class="fas fa-plus-circle"></i> Crea Nuovo Viaggio
-        </a>
-    </div>
+    
 
     <!-- Griglia di Card -->
     <div class="row">
@@ -81,6 +76,11 @@
                 </div>
             </div>
         @endforeach
+        <div class="text-center mb-4">
+            <a href="{{ route('admin.viaggi.create') }}" class="btn btn-success">
+                <i class="fas fa-plus-circle"></i> Crea Nuovo Viaggio
+            </a>
+        </div>
     </div>
 </div>
 
