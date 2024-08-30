@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (giornateContainer && addGiornataButton) {
         let giornataCount = giornateContainer.querySelectorAll('.giornata').length;
 
+        // Aggiungi l'evento click per il primo bottone "Aggiungi Tappa"
+        giornateContainer.querySelectorAll('.add-tappa-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const giornataIndex = button.dataset.giornataIndex;
+                addTappa(giornataIndex, button.closest('.giornata').querySelector('.tappe-container'));
+            });
+        });
+
         addGiornataButton.addEventListener('click', function() {
             if (giornataCount < maxDays) {
                 const giornataIndex = giornataCount;
@@ -39,20 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const addTappaButton = newGiornata.querySelector('.add-tappa-button');
                 addTappaButton.addEventListener('click', function() {
-                    const tappaContainer = newGiornata.querySelector('.tappe-container');
-                    let tappaCount = tappaContainer.querySelectorAll('.form-group').length;
-                    if (tappaCount < maxSteps) {
-                        const newTappa = document.createElement('div');
-                        newTappa.classList.add('form-group');
-                        newTappa.innerHTML = `
-                            <label for="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]">Tappa ${tappaCount + 1}</label>
-                            <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]" placeholder="Titolo Tappa">
-                            <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][descrizione]" placeholder="Descrizione Tappa"></textarea>
-                        `;
-                        tappaContainer.appendChild(newTappa);
-                    } else {
-                        alert('Puoi aggiungere fino a 10 tappe per giornata.');
-                    }
+                    addTappa(giornataIndex, newGiornata.querySelector('.tappe-container'));
                 });
             } else {
                 alert('Puoi aggiungere fino a 10 giornate per viaggio.');
@@ -76,5 +71,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 charCountDisplay.textContent = `${maxCharCount} / ${maxCharCount} caratteri`;
             }
         });
+    }
+
+    // Funzione per aggiungere una nuova tappa
+    function addTappa(giornataIndex, tappaContainer) {
+        let tappaCount = tappaContainer.querySelectorAll('.form-group').length;
+        if (tappaCount < maxSteps) {
+            const newTappa = document.createElement('div');
+            newTappa.classList.add('form-group');
+            newTappa.innerHTML = `
+                <label for="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]">Tappa ${tappaCount + 1}</label>
+                <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]" placeholder="Titolo Tappa">
+                <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][descrizione]" placeholder="Descrizione Tappa"></textarea>
+            `;
+            tappaContainer.appendChild(newTappa);
+        } else {
+            alert('Puoi aggiungere fino a 10 tappe per giornata.');
+        }
     }
 });
