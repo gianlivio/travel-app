@@ -292,3 +292,24 @@ select:focus {
     outline: none; // Rimuove il contorno predefinito del focus
     box-shadow: 0 0 5px rgba(5, 45, 94, 0.4); // Aggiunge un leggero effetto di ombra
 }
+
+.remove-tappa-button {
+    background-color: $text-color !important; // Usa il colore principale del tema
+    border-color: $text-color !important;
+    color: #fff !important; // Colore del testo bianco per contrasto
+    transition: background-color 0.3s ease; // Transizione per un feedback visivo
+}
+
+.remove-tappa-button:hover {
+    background-color: darken($text-color, 50%) !important; // Scurisce il colore al passaggio del mouse
+}
+
+.add-tappa-button {
+    background-color: $primary-color !important; // Usa il colore principale del tema
+    transition: background-color 0.3s ease; // Transizione per un feedback visivo
+}
+
+.add-tappa-button:hover {
+    background-color: darken($primary-color, 20%) !important; // Scurisce il colore al passaggio del mouse
+   
+}

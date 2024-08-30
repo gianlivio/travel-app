@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <label for="giornate[${giornataIndex}][tappe][0][titolo]">Tappa 1</label>
                             <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][titolo]" placeholder="Titolo Tappa">
                             <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
-                            <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
+                            <button type="button" class="btn btn-primary remove-tappa-button">Rimuovi Tappa</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="${giornataIndex}">Aggiungi Tappa</button>
+                    <button type="button" class="btn btn-primary add-tappa-button" data-giornata-index="${giornataIndex}">Aggiungi Tappa</button>
                 `;
                 giornateContainer.appendChild(newGiornata);
 
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <label for="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]">Tappa ${tappaCount + 1}</label>
                 <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]" placeholder="Titolo Tappa">
                 <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][descrizione]" placeholder="Descrizione Tappa"></textarea>
-                <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
+                <button type="button" class="btn btn-primary remove-tappa-button">Rimuovi Tappa</button>
             `;
             tappaContainer.appendChild(newTappa);
 
