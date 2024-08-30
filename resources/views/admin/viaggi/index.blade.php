@@ -42,9 +42,24 @@
                         <!-- Aggiunta della visualizzazione dell'itinerario -->
                         <p><strong>Itinerario:</strong>
                             <ul>
-                                @foreach($viaggio->tappe as $tappa)
-                                    <li>{{ $tappa->descrizione }}</li>
-                                @endforeach
+                                @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
+                                    @foreach($viaggio->giornate as $giornata)
+                                        <li>
+                                            <strong>Data: {{ $giornata->data }}</strong>
+                                            <ul>
+                                                @if($giornata->tappe && $giornata->tappe->isNotEmpty())
+                                                    @foreach($giornata->tappe as $tappa)
+                                                        <li>{{ $tappa->descrizione }}</li>
+                                                    @endforeach
+                                                @else
+                                                    <li>Nessuna tappa disponibile</li>
+                                                @endif
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    <li>Nessuna giornata disponibile</li>
+                                @endif
                             </ul>
                         </p>
                         <!-- Fine della visualizzazione dell'itinerario -->

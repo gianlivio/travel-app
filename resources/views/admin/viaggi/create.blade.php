@@ -10,7 +10,7 @@
 </div> 
 
 <div class="header-section">
-    <h3> Qui puoi gestire i dettagli del tuo viaggio</h3>
+    <h3> Qui puoi creare un nuovo viaggio</h3>
 </div>
 
 <div class="container my-4">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group mb-2 overlay-container">
                             <label for="dettagli"><i class="fas fa-info-circle"></i> Dettagli</label>
-                            <textarea class="form-control" id="dettagli" name="dettagli">{{ old('dettagli', $viaggio->dettagli ?? '') }}</textarea>
+                            <textarea class="form-control" id="dettagli" name="dettagli">{{ old('dettagli') }}</textarea>
                             <!-- Questo div fungerà da overlay per il contatore di caratteri -->
                             <div class="char-count"> / 500 caratteri</div>
                         </div>
@@ -67,21 +67,26 @@
             <div class="col-lg-6">
                 <div class="card info-box">
                     <div class="card-header">
-                        <h4><i class="fas fa-route"></i> Itinerario</h4>
+                        <h4><i class="fas fa-calendar-day"></i> Itinerario</h4>
                     </div>
                     <div class="card-body">
-                        <div id="itinerary-container">
-                            <!-- Visualizza tappe esistenti -->
-                            @if(isset($viaggio) && $viaggio->tappe)
-                                @foreach($viaggio->tappe as $index => $tappa)
+                        <div id="giornate-container">
+                            <div class="giornata mb-3">
+                                <div class="form-group">
+                                    <label for="giornate[0][data]">Data Giornata</label>
+                                    <input type="date" class="form-control mb-2" name="giornate[0][data]" required>
+                                </div>
+                                <div class="tappe-container">
                                     <div class="form-group">
-                                        <label for="tappa_{{ $index + 1 }}">Tappa {{ $index + 1 }}</label>
-                                        <input type="text" class="form-control mb-2" id="tappa_{{ $index + 1 }}" name="tappe[]" value="{{ $tappa->descrizione }}" placeholder="Descrizione Tappa {{ $index + 1 }}">
+                                        <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
+                                        <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
+                                        <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
                                     </div>
-                                @endforeach
-                            @endif
+                                </div>
+                                <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="0">Aggiungi Tappa</button>
+                            </div>
                         </div>
-                        <button type="button" id="add-step-button" class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Aggiungi Tappa</button>
+                        <button type="button" class="btn btn-primary mt-3" id="add-giornata-button"><i class="fas fa-plus"></i> Aggiungi Giornata</button>
                     </div>
                 </div>
             </div>

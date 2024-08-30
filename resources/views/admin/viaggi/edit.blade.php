@@ -22,7 +22,7 @@
 
         <!-- Row per affiancare i due box -->
         <div class="row custom-gap">
-                        <!-- Informazioni sul Viaggio -->
+            <!-- Informazioni sul Viaggio -->
             <div class="col-lg-6">
                 <div class="card info-box">
                     <div class="card-header">
@@ -31,24 +31,24 @@
                     <div class="card-body">
                         <div class="form-group mb-2">
                             <label for="titolo"><i class="fas fa-pen"></i> Nome dell'avventura</label>
-                            <input type="text" class="form-control" id="titolo" name="titolo" value="{{ $viaggio->titolo }}" required>
+                            <input type="text" class="form-control" id="titolo" name="titolo" value="{{ old('titolo', $viaggio->titolo) }}" required>
                         </div>
                         <div class="form-group mb-2">
                             <label for="meta"><i class="fas fa-map-marker-alt"></i> Meta</label>
-                            <input type="text" class="form-control" id="meta" name="meta" value="{{ $viaggio->meta }}" required>
+                            <input type="text" class="form-control" id="meta" name="meta" value="{{ old('meta', $viaggio->meta) }}" required>
                         </div>
                         <div class="form-group mb-2">
                             <label for="durata"><i class="fas fa-clock"></i> Durata (giorni)</label>
-                            <input type="number" class="form-control" id="durata" name="durata" value="{{ $viaggio->durata }}" required>
+                            <input type="number" class="form-control" id="durata" name="durata" value="{{ old('durata', $viaggio->durata) }}" required>
                         </div>
                         <div class="form-group mb-2">
                             <label for="periodo"><i class="fas fa-calendar-alt"></i> Periodo</label>
                             <select class="form-control" id="periodo" name="periodo" required>
                                 <option value="" disabled>Seleziona un periodo</option>
-                                <option value="Estate" {{ $viaggio->periodo == 'Estate' ? 'selected' : '' }}>Estate</option>
-                                <option value="Autunno" {{ $viaggio->periodo == 'Autunno' ? 'selected' : '' }}>Autunno</option>
-                                <option value="Primavera" {{ $viaggio->periodo == 'Primavera' ? 'selected' : '' }}>Primavera</option>
-                                <option value="Inverno" {{ $viaggio->periodo == 'Inverno' ? 'selected' : '' }}>Inverno</option>
+                                <option value="Estate" {{ old('periodo', $viaggio->periodo) == 'Estate' ? 'selected' : '' }}>Estate</option>
+                                <option value="Autunno" {{ old('periodo', $viaggio->periodo) == 'Autunno' ? 'selected' : '' }}>Autunno</option>
+                                <option value="Primavera" {{ old('periodo', $viaggio->periodo) == 'Primavera' ? 'selected' : '' }}>Primavera</option>
+                                <option value="Inverno" {{ old('periodo', $viaggio->periodo) == 'Inverno' ? 'selected' : '' }}>Inverno</option>
                             </select>
                         </div>
                         <div class="form-group mb-2 overlay-container">
@@ -69,19 +69,51 @@
             <div class="col-lg-6">
                 <div class="card info-box">
                     <div class="card-header">
-                        <h4><i class="fas fa-route"></i> Itinerario</h4>
+                        <h4><i class="fas fa-calendar-day"></i> Itinerario</h4>
                     </div>
                     <div class="card-body">
-                        <div id="itinerary-container">
-                            <!-- Visualizza tappe esistenti -->
-                            @foreach($viaggio->tappe as $index => $tappa)
-                                <div class="form-group">
-                                    <label for="tappa_{{ $index + 1 }}">Tappa {{ $index + 1 }}</label>
-                                    <input type="text" class="form-control mb-3" id="tappa_{{ $index + 1 }}" name="tappe[]" value="{{ $tappa->descrizione }}" placeholder="Descrizione Tappa {{ $index + 1 }}">
+                        <div id="giornate-container">
+                            @if($viaggio->giornate->isNotEmpty())
+                                @foreach($viaggio->giornate as $giornataIndex => $giornata)
+                                    <div class="giornata mb-3">
+                                        <div class="form-group">
+                                            <label for="giornate[{{ $giornataIndex }}][data]">Data Giornata</label>
+                                            <input type="date" class="form-control mb-2" name="giornate[{{ $giornataIndex }}][data]" value="{{ old("giornate.$giornataIndex.data", $giornata->data) }}" required>
+                                            <input type="hidden" name="giornate[{{ $giornataIndex }}][id]" value="{{ $giornata->id }}">
+                                        </div>
+                                        <div class="tappe-container">
+                                            @foreach($giornata->tappe as $tappaIndex => $tappa)
+                                                <div class="form-group">
+                                                    <label for="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]">Tappa {{ $tappaIndex + 1 }}</label>
+                                                    <input type="text" class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]" value="{{ old("giornate.$giornataIndex.tappe.$tappaIndex.titolo", $tappa->titolo) }}" placeholder="Titolo Tappa">
+                                                    <textarea class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][descrizione]" placeholder="Descrizione Tappa">{{ old("giornate.$giornataIndex.tappe.$tappaIndex.descrizione", $tappa->descrizione) }}</textarea>
+                                                    <input type="hidden" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][id]" value="{{ $tappa->id }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="{{ $giornataIndex }}">Aggiungi Tappa</button>
+                                    </div>
+                                @endforeach
+                            @else
+                                <!-- Inizializza con una giornata e una tappa vuota se non ci sono giornate esistenti -->
+                                <div class="giornata mb-3">
+                                    <div class="form-group">
+                                        <label for="giornate[0][data]">Data Giornata</label>
+                                        <input type="date" class="form-control mb-2" name="giornate[0][data]" required>
+                                    </div>
+                                    <div class="tappe-container">
+                                        <div class="form-group">
+                                            <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
+                                            <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
+                                            <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary add-tappa-button" data-giornata-index="0">Aggiungi Tappa</button>
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
-                        <button type="button" id="add-step-button" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Aggiungi Tappa</button>
+                        <button type="button" class="btn btn-primary mt-3" id="add-giornata-button"><i class="fas fa-plus"></i> Aggiungi Giornata</button>
+                        
                     </div>
                 </div>
             </div>

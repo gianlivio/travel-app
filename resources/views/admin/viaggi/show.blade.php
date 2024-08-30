@@ -49,16 +49,31 @@
         </div>
         <!-- Fine della sezione informazioni -->
 
-        <!-- Inizio della sezione itinerario con dimensioni limitate -->
+        <!-- Inizio della sezione itinerario -->
         <div class="card flex-fill" style="max-width: 500px;">
             <div class="card-header">
                 <h4><i class="fas fa-route"></i> Itinerario</h4>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    @foreach($viaggio->tappe as $tappa)
-                        <li class="list-group-item"> {{ $tappa->descrizione }}</li>
-                    @endforeach
+                    @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
+                        @foreach($viaggio->giornate as $giornata)
+                            <li class="list-group-item">
+                                <strong>Data: {{ $giornata->data }}</strong>
+                                <ul>
+                                    @if($giornata->tappe && $giornata->tappe->isNotEmpty())
+                                        @foreach($giornata->tappe as $tappa)
+                                            <li>{{ $tappa->descrizione }}</li>
+                                        @endforeach
+                                    @else
+                                        <li>Nessuna tappa disponibile</li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endforeach
+                    @else
+                        <li class="list-group-item">Nessuna giornata disponibile</li>
+                    @endif
                 </ul>
             </div>
         </div>

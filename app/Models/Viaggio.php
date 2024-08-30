@@ -18,20 +18,8 @@ class Viaggio extends Model
         return $this->hasMany(Giornata::class);
     }
 
-    public function tappe()
-    {
-        return $this->hasMany(Tappa::class);
-    }
-
-    // Definisci la relazione inversa con User
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Immagine di anteprima
-    public function previewImage()
-    {
-        return $this->hasOne(Image::class)->where('is_preview', true);
     }
 }
