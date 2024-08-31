@@ -41,14 +41,12 @@
                             <input type="number" class="form-control" id="durata" name="durata" value="{{ old('durata', $viaggio->durata) }}" required>
                         </div>
                         <div class="form-group mb-2">
-                            <label for="periodo"><i class="fas fa-calendar-alt"></i> Periodo</label>
-                            <select type="periodo" class="form-control" id="periodo" name="periodo" required>
-                                <option value="" disabled>Seleziona un periodo</option>
-                                <option value="Estate" {{ old('periodo', $viaggio->periodo) == 'Estate' ? 'selected' : '' }}>Estate</option>
-                                <option value="Autunno" {{ old('periodo', $viaggio->periodo) == 'Autunno' ? 'selected' : '' }}>Autunno</option>
-                                <option value="Primavera" {{ old('periodo', $viaggio->periodo) == 'Primavera' ? 'selected' : '' }}>Primavera</option>
-                                <option value="Inverno" {{ old('periodo', $viaggio->periodo) == 'Inverno' ? 'selected' : '' }}>Inverno</option>
-                            </select>
+                            <label for="data_inizio"><i class="fas fa-calendar-alt"></i> Data Inizio</label>
+                            <input type="date" class="form-control" id="data_inizio" name="data_inizio" value="{{ old('data_inizio', isset($viaggio) ? $viaggio->data_inizio : '') }}" required>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="data_fine"><i class="fas fa-calendar-alt"></i> Data Fine</label>
+                            <input type="date" class="form-control" id="data_fine" name="data_fine" value="{{ old('data_fine', isset($viaggio) ? $viaggio->data_fine : '') }}" required>
                         </div>
                         <div class="form-group mb-2 overlay-container">
                             <label for="dettagli"><i class="fas fa-info-circle"></i> Dettagli</label>

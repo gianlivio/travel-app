@@ -33,7 +33,10 @@
                             <i class="fas fa-clock"></i> <strong>Durata:</strong> {{ $viaggio->durata }} giorni
                         </p>
                         <p class="card-text">
-                            <i class="fas fa-calendar-alt"></i> <strong>Periodo:</strong> {{ $viaggio->periodo }}
+                            <i class="fas fa-calendar-alt"></i> <strong>Data Inizio:</strong> {{ $viaggio->data_inizio }}
+                        </p>
+                        <p class="card-text">
+                            <i class="fas fa-calendar-alt"></i> <strong>Data Fine:</strong> {{ $viaggio->data_fine }}
                         </p>
                         <p class="card-text">
                             <i class="fas fa-align-left"></i> <strong>Dettagli:</strong> {{ $viaggio->dettagli }}
