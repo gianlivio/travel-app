@@ -1,3 +1,6 @@
 [build]
   command = "composer install && php artisan migrate --force && php artisan db:seed --force && php artisan storage:link"
   publish = "public"
+
+  [build.environment]
+  PHP_VERSION = "8.2"
