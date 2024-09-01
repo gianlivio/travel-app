@@ -103,7 +103,7 @@
             </div>
         @endforeach
         <div class="text-center mb-4">
-            <a href="{{ route('admin.viaggi.create') }}" class="btn btn-success">
+            <a href="{{ route('admin.viaggi.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus-circle"></i> Crea Nuovo Viaggio
             </a>
         </div>
