@@ -2,6 +2,13 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 @import 'partials/variables';
 
+
+
+html, body {
+    height: 100%;
+}
+
+
 // Navbar Styles
 .navbar {
     background-color: $navbar-bg-color;
@@ -43,8 +50,8 @@
     min-height: 550px; 
     height: auto;    
     overflow-y: auto; 
-    background-color: rgba(5, 45, 94, 0.6); // Stesso sfondo delle card
-    color: $text-color; // Colore del testo
+    background-color: rgba(5, 45, 94, 0.6);
+    color: $text-color; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
@@ -67,7 +74,6 @@ h1, .card-title {
     h3 {
         font-family: 'Bungee', sans-serif;   
         font-size: 3rem;
-        color: #3B945E;
         text-align: center;
         margin-bottom: 15px;
     }
@@ -141,6 +147,10 @@ h1, .card-title {
     padding-bottom: 50px; 
 }
 
+.card-title {
+    color: #fff;
+}
+
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -209,10 +219,10 @@ footer {
 #dettagli {
     min-height: 100px;
     resize: vertical;
-    padding-bottom: 30px; // Spazio per il contatore
+    padding-bottom: 30px; 
     width: 100%;
-    background-color: rgba(5, 45, 94, 0.6); // Sfondo simile alle card
-    color: $text-color; // Colore del testo
+    background-color: rgba(5, 45, 94, 0.6);
+    color: $text-color; 
 }
 
 .char-count {
@@ -221,8 +231,8 @@ footer {
     right: 10px;
     color: #666;
     font-size: 12px;
-    pointer-events: none; // Rende il testo non cliccabile
-    z-index: 10; // Assicura che il contatore sia sopra il textarea
+    pointer-events: none; 
+    z-index: 10; 
 }
 
 .itinerary-list, .tappe-list {
@@ -269,12 +279,12 @@ label[type="file"],
 textarea[type="text"],
 textarea,
 select {
-    background-color: rgba(5, 45, 94, 0.1); // Sfondo leggermente colorato
-    color: $text-color; // Colore del testo coerente con il tema
-    border: 1px solid darken($background-color, 10%); // Bordo leggermente più scuro dello sfondo
-    border-radius: 4px; // Angoli arrotondati per un aspetto moderno
-    padding: 10px; // Padding per un aspetto più spazioso
-    font-family: 'Poppins', sans-serif; // Font coerente con il tema generale
+    background-color: rgba(5, 45, 94, 0.1); 
+    color: $text-color; 
+    border: 1px solid darken($background-color, 10%); 
+    border-radius: 4px; 
+    padding: 10px; 
+    font-family: 'Poppins', sans-serif; 
 }
 
 // Stile per quando il campo è in focus (per dare un feedback visivo)
@@ -287,29 +297,39 @@ label[type="file"]:focus,
 textarea[type="text"]:focus,
 textarea:focus,
 select:focus {
-    background-color: rgba(5, 45, 94, 0.2); // Sfondo più chiaro per il focus
-    border-color: $primary-color; // Colore del bordo del tema principale per il focus
-    outline: none; // Rimuove il contorno predefinito del focus
-    box-shadow: 0 0 5px rgba(5, 45, 94, 0.4); // Aggiunge un leggero effetto di ombra
+    background-color: rgba(5, 45, 94, 0.2); 
+    border-color: $primary-color; 
+    outline: none; 
+    box-shadow: 0 0 5px rgba(5, 45, 94, 0.4); 
 }
 
 .remove-tappa-button {
-    background-color: $text-color !important; // Usa il colore principale del tema
+    background-color: $text-color !important; 
     border-color: $text-color !important;
-    color: #fff !important; // Colore del testo bianco per contrasto
-    transition: background-color 0.3s ease; // Transizione per un feedback visivo
+    color: #fff !important;
+    transition: background-color 0.3s ease; 
 }
 
 .remove-tappa-button:hover {
-    background-color: darken($text-color, 50%) !important; // Scurisce il colore al passaggio del mouse
+    background-color: darken($text-color, 50%) !important; 
 }
 
 .add-tappa-button {
-    background-color: $primary-color !important; // Usa il colore principale del tema
-    transition: background-color 0.3s ease; // Transizione per un feedback visivo
+    background-color: $primary-color !important;
+    transition: background-color 0.3s ease; 
 }
 
 .add-tappa-button:hover {
-    background-color: darken($primary-color, 20%) !important; // Scurisce il colore al passaggio del mouse
+    background-color: darken($primary-color, 20%) !important;
    
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1; 
 }
