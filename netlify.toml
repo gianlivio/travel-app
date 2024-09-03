@@ -1,6 +1,6 @@
-[build]
-  command = "composer install && php artisan migrate --force && php artisan db:seed --force && php artisan storage:link"
-  publish = "public"
-
-  [build.environment]
+[build.environment]
   PHP_VERSION = "8.2"
+  COMPOSER_ALLOW_SUPERUSER = "1"
+
+[build]
+  command = "apt-get update && apt-get install -y php-mysql && composer install && php artisan migrate --force && php artisan db:seed --force && php artisan storage:link"
