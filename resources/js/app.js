@@ -138,14 +138,51 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 $(function() {
+    // Inizializzazione delle date di inizio e fine con valori di default
+    let startDate = moment(); // Default: oggi
+    let endDate = moment().add(1, 'days'); // Default: domani
+
+    // Controlla se ci sono valori nei campi nascosti
+    if ($('#data_inizio').val()) {
+        startDate = moment($('#data_inizio').val(), 'YYYY-MM-DD');
+    }
+    if ($('#data_fine').val()) {
+        endDate = moment($('#data_fine').val(), 'YYYY-MM-DD');
+    }
+
+    // Inizializza il daterangepicker
     $('#date_range').daterangepicker({
         locale: {
-            format: 'YYYY-MM-DD'
+            format: 'YYYY-MM-DD',
+            applyLabel: 'Applica',
+            cancelLabel: 'Annulla',
+            daysOfWeek: ['Do', 'Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa'],
+            monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+                         'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+            firstDay: 1
         },
-        startDate: $('#data_inizio').val(),
-        endDate: $('#data_fine').val()
-    }, function(start, end, label) {
+        startDate: startDate,
+        endDate: endDate,
+        autoUpdateInput: true, // Assicura che l'input venga aggiornato automaticamente
+    }, function(start, end) {
+        // Aggiorna i valori dei campi nascosti
         $('#data_inizio').val(start.format('YYYY-MM-DD'));
         $('#data_fine').val(end.format('YYYY-MM-DD'));
+        // Mostra le date nel formato leggibile nell'input visibile
+        $('#date_range').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+    });
+
+    // Evento per l'applicazione delle date selezionate
+    $('#date_range').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        $('#data_inizio').val(picker.startDate.format('YYYY-MM-DD'));
+        $('#data_fine').val(picker.endDate.format('YYYY-MM-DD'));
+    });
+
+    // Evento per il reset dei campi in caso di annullamento
+    $('#date_range').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+        $('#data_inizio').val('');
+        $('#data_fine').val('');
     });
 });
