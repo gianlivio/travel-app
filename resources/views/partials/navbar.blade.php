@@ -2,7 +2,6 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <img src="{{ asset('images/travel.png') }}" alt="Logo" style="width: 60px; height: 60px;">
-            <span>Travel App</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
