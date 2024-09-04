@@ -29,8 +29,7 @@ class ViaggioController extends Controller
                 'titolo' => 'required|string|max:255',
                 'meta' => 'required|string|max:255',
                 'durata' => 'required|integer',
-                'data_inizio' => 'required|date',
-                'data_fine' => 'required|date|after_or_equal:data_inizio',
+                'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
                 'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'giornate' => 'required|array',
@@ -39,25 +38,28 @@ class ViaggioController extends Controller
                 'giornate.*.tappe.*.titolo' => 'required|string|max:255',
                 'giornate.*.tappe.*.descrizione' => 'nullable|string',
             ]);
-
+    
+            // Prima unifica data inizio fine in date range
+            $dates = explode(' - ', $request->input('date_range'));
+    
             // Crea il viaggio
             $viaggio = Viaggio::create([
                 'titolo' => $request->input('titolo'),
                 'meta' => $request->input('meta'),
                 'durata' => $request->input('durata'),
-                'data_inizio' => $request->input('data_inizio'), 
-                'data_fine' => $request->input('data_fine'),     
+                'data_inizio' => $dates[0], 
+                'data_fine' => $dates[1],    
                 'dettagli' => $request->input('dettagli'),
                 'immagine' => $request->file('immagine') ? $request->file('immagine')->store('viaggi_images', 'public') : null,
                 'user_id' => Auth::id(),
             ]);
-
+    
             // Aggiungi le giornate e le tappe al viaggio
             foreach ($request->input('giornate') as $giornataData) {
                 $giornata = $viaggio->giornate()->create([
                     'data' => $giornataData['data'],
                 ]);
-
+    
                 foreach ($giornataData['tappe'] as $tappaData) {
                     $giornata->tappe()->create([
                         'titolo' => $tappaData['titolo'],
@@ -68,7 +70,7 @@ class ViaggioController extends Controller
                     ]);
                 }
             }
-
+    
             return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio creato con successo.');
         } catch (\Exception $e) {
             \Log::error('Errore nel salvataggio del viaggio: ' . $e->getMessage());
@@ -89,60 +91,70 @@ class ViaggioController extends Controller
     }
 
     public function update(Request $request, $id)
-        {
-            try {
-                $request->validate([
-                    'titolo' => 'required|string|max:255',
-                    'meta' => 'required|string|max:255',
-                    'durata' => 'required|integer',
-                    'data_inizio' => 'required|date',
-                    'data_fine' => 'required|date|after_or_equal:data_inizio',
-                    'dettagli' => 'nullable|string',
-                    'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                    'giornate' => 'required|array',
-                    'giornate.*.data' => 'required|date',
-                    'giornate.*.tappe' => 'required|array',
-                    'giornate.*.tappe.*.titolo' => 'required|string|max:255',
-                    'giornate.*.tappe.*.descrizione' => 'nullable|string',
-                ]);
+    {
+        try {
+            $request->validate([
+                'titolo' => 'required|string|max:255',
+                'meta' => 'required|string|max:255',
+                'durata' => 'required|integer',
+                'date_range' => 'required|string',
+                'dettagli' => 'nullable|string',
+                'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'giornate' => 'required|array',
+                'giornate.*.data' => 'required|date',
+                'giornate.*.tappe' => 'nullable|array',
+                'giornate.*.tappe.*.titolo' => 'required|string|max:255',
+                'giornate.*.tappe.*.descrizione' => 'nullable|string',
+            ]);
 
-                $viaggio = Viaggio::findOrFail($id);
+            $dates = explode(' - ', $request->input('date_range'));
 
-                if ($request->hasFile('immagine')) {
-                    if ($viaggio->immagine && Storage::exists('public/' . $viaggio->immagine)) {
-                        Storage::delete('public/' . $viaggio->immagine);
+            $viaggio = Viaggio::findOrFail($id);
+
+            if ($request->hasFile('immagine')) {
+                if ($viaggio->immagine && Storage::exists('public/' . $viaggio->immagine)) {
+                    Storage::delete('public/' . $viaggio->immagine);
+                }
+                $imagePath = $request->file('immagine')->store('viaggi_images', 'public');
+                $viaggio->immagine = $imagePath;
+            }
+
+            $viaggio->update([
+                'titolo' => $request->input('titolo'),
+                'meta' => $request->input('meta'),
+                'durata' => $request->input('durata'),
+                'data_inizio' => $dates[0],
+                'data_fine' => $dates[1],
+                'dettagli' => $request->input('dettagli'),
+                'immagine' => $imagePath ?? $viaggio->immagine,
+            ]);
+
+            // Aggiornamento delle giornate
+            $existingGiornataIds = $viaggio->giornate()->pluck('id')->toArray();
+
+            foreach ($request->input('giornate') as $giornataData) {
+                if (isset($giornataData['id'])) {
+                    $giornata = Giornata::find($giornataData['id']);
+                    if (!$giornata) {
+                        continue;
                     }
-                    $imagePath = $request->file('immagine')->store('viaggi_images', 'public');
-                    $viaggio->immagine = $imagePath;
+                } else {
+                    $giornata = $viaggio->giornate()->create([
+                        'data' => $giornataData['data'],
+                    ]);
                 }
 
-                $viaggio->update($request->only('titolo', 'meta', 'durata', 'data_inizio', 'data_fine', 'dettagli'));
+                $giornata->data = $giornataData['data'];
+                $giornata->save();
 
-                // Aggiornamento delle giornate
-                $existingGiornataIds = $viaggio->giornate()->pluck('id')->toArray();
+                if (($key = array_search($giornata->id, $existingGiornataIds)) !== false) {
+                    unset($existingGiornataIds[$key]);
+                }
 
-                foreach ($request->input('giornate') as $giornataData) {
-                    if (isset($giornataData['id'])) {
-                        $giornata = Giornata::find($giornataData['id']);
-                        if (!$giornata) {
-                            continue;
-                        }
-                    } else {
-                        $giornata = $viaggio->giornate()->create([
-                            'data' => $giornataData['data'],
-                        ]);
-                    }
+                // Aggiorna le tappe per la giornata corrente
+                $existingTappaIds = $giornata->tappe()->pluck('id')->toArray();
 
-                    $giornata->data = $giornataData['data'];
-                    $giornata->save();
-
-                    if (($key = array_search($giornata->id, $existingGiornataIds)) !== false) {
-                        unset($existingGiornataIds[$key]);
-                    }
-
-                    // Aggiorna le tappe per la giornata corrente
-                    $existingTappaIds = $giornata->tappe()->pluck('id')->toArray();
-
+                if (isset($giornataData['tappe'])) {
                     foreach ($giornataData['tappe'] as $tappaData) {
                         if (isset($tappaData['id'])) {
                             $tappa = Tappa::find($tappaData['id']);
@@ -166,20 +178,21 @@ class ViaggioController extends Controller
                             unset($existingTappaIds[$key]);
                         }
                     }
-
-                    // Elimina le tappe non più esistenti
-                    Tappa::destroy($existingTappaIds);
                 }
 
-                // Elimina le giornate non più esistenti
-                Giornata::destroy($existingGiornataIds);
-
-                return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
-            } catch (\Exception $e) {
-                \Log::error('Errore nell\'aggiornamento del viaggio: ' . $e->getMessage());
-                return redirect()->back()->with('error', 'Si è verificato un errore durante l\'aggiornamento del viaggio.');
+                // Elimina le tappe non più esistenti
+                Tappa::destroy($existingTappaIds);
             }
+
+            // Elimina le giornate non più esistenti
+            Giornata::destroy($existingGiornataIds);
+
+            return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
+        } catch (\Exception $e) {
+            \Log::error('Errore nell\'aggiornamento del viaggio: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Si è verificato un errore durante l\'aggiornamento del viaggio.');
         }
+    }
 
     public function destroy($id)
     {

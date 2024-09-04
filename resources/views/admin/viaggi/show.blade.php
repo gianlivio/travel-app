@@ -40,10 +40,7 @@
                     </div>
                     <div class="col-12 mb-2">
                         <p class="card-text">
-                            <i class="fas fa-calendar-alt"></i> <strong>Data Inizio:</strong> {{ $viaggio->data_inizio }}
-                        </p>
-                        <p class="card-text">
-                            <i class="fas fa-calendar-alt"></i> <strong>Data Fine:</strong> {{ $viaggio->data_fine }}
+                            <i class="fas fa-calendar-alt"></i> <strong>Periodo:</strong> {{ \Carbon\Carbon::parse($viaggio->data_inizio)->format('d F Y') }} - {{ \Carbon\Carbon::parse($viaggio->data_fine)->format('d F Y') }}
                         </p>
                     </div>
                     <div class="col-12 mb-2">
