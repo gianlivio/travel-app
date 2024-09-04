@@ -41,12 +41,10 @@
                             <input type="number" class="form-control" id="durata" name="durata" value="{{ old('durata', $viaggio->durata) }}" required>
                         </div>
                         <div class="form-group mb-2">
-                            <label for="data_inizio"><i class="fas fa-calendar-alt"></i> Data Inizio</label>
-                            <input type="date" class="form-control" id="data_inizio" name="data_inizio" value="{{ old('data_inizio', isset($viaggio) ? $viaggio->data_inizio : '') }}" required>
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="data_fine"><i class="fas fa-calendar-alt"></i> Data Fine</label>
-                            <input type="date" class="form-control" id="data_fine" name="data_fine" value="{{ old('data_fine', isset($viaggio) ? $viaggio->data_fine : '') }}" required>
+                            <label for="date_range"><i class="fas fa-calendar-alt"></i> Periodo</label>
+                            <input type="text" class="form-control" id="date_range" name="date_range" value="{{ old('date_range') }}" required>
+                            <input type="hidden" id="data_inizio" name="data_inizio" value="{{ old('data_inizio', isset($viaggio) ? $viaggio->data_inizio : '') }}">
+                            <input type="hidden" id="data_fine" name="data_fine" value="{{ old('data_fine', isset($viaggio) ? $viaggio->data_fine : '') }}">
                         </div>
                         <div class="form-group mb-2 overlay-container">
                             <label for="dettagli"><i class="fas fa-info-circle"></i> Dettagli</label>
@@ -82,7 +80,7 @@
                                                 <div class="form-group">
                                                     <label for="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]">Tappa {{ $tappaIndex + 1 }}</label>
                                                     <input type="text" class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]" value="{{ old("giornate.$giornataIndex.tappe.$tappaIndex.titolo", $tappa->titolo) }}" placeholder="Titolo Tappa">
-                                                    <textarea class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][descrizione]" placeholder="Descrizione Tappa">{{ old("giornate.$giornataIndex.tappe.$tappaIndex.descrizione", $tappa->descrizione) }}</textarea>
+                                                    <textarea type="text"class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][descrizione]" placeholder="Descrizione Tappa">{{ old("giornate.$giornataIndex.tappe.$tappaIndex.descrizione", $tappa->descrizione) }}</textarea>
                                                     <input type="hidden" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][id]" value="{{ $tappa->id }}">
                                                     <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
                                                     <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>

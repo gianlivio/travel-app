@@ -136,3 +136,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+$(function() {
+    $('#date_range').daterangepicker({
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        startDate: $('#data_inizio').val(),
+        endDate: $('#data_fine').val()
+    }, function(start, end, label) {
+        $('#data_inizio').val(start.format('YYYY-MM-DD'));
+        $('#data_fine').val(end.format('YYYY-MM-DD'));
+    });
+});
