@@ -163,7 +163,7 @@ $(function() {
         },
         startDate: startDate,
         endDate: endDate,
-        autoUpdateInput: true, // Assicura che l'input venga aggiornato automaticamente
+        autoUpdateInput: false, // Imposta su false per gestire manualmente l'aggiornamento dell'input
     }, function(start, end) {
         // Aggiorna i valori dei campi nascosti
         $('#data_inizio').val(start.format('YYYY-MM-DD'));
@@ -185,4 +185,15 @@ $(function() {
         $('#data_inizio').val('');
         $('#data_fine').val('');
     });
+
+    // Imposta l'input al caricamento della pagina se i campi nascosti hanno valori
+    if ($('#data_inizio').val() && $('#data_fine').val()) {
+        $('#date_range').val(
+            moment($('#data_inizio').val()).format('YYYY-MM-DD') + ' - ' +
+            moment($('#data_fine').val()).format('YYYY-MM-DD')
+        );
+    } else {
+        // Se i campi sono vuoti, imposta i valori di default nell'input
+        $('#date_range').val(startDate.format('YYYY-MM-DD') + ' - ' + endDate.format('YYYY-MM-DD'));
+    }
 });
