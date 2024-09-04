@@ -118,8 +118,8 @@ h1, .card-title {
 
 .card {
     width: 100%;
-    max-width: 600px;
-    min-height: 500px;
+    max-width: 400px;
+    min-height: 300px;
     overflow: hidden;
     background-color: rgba(5, 45, 94, 0.6); 
     color: $text-color;
@@ -142,9 +142,9 @@ h1, .card-title {
 }
 
 .card-content {
-    max-height: 200px;
+    max-height: 150px;
     overflow-y: auto;
-    padding-bottom: 50px; 
+    padding-bottom: 10px; 
 }
 
 .card-title {

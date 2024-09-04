@@ -26,51 +26,12 @@
                         <h5 class="card-title">
                             <i class="fas fa-plane"></i> {{ $viaggio->titolo }}
                         </h5>
-                        <p class="card-text">
-                            <i class="fas fa-map-marker-alt"></i> <strong>Meta:</strong> {{ $viaggio->meta }}
-                        </p>
-                        <p class="card-text">
-                            <i class="fas fa-clock"></i> <strong>Durata:</strong> {{ $viaggio->durata }} giorni
-                        </p>
+            
                         <p class="card-text">
                             <i class="fas fa-calendar-alt"></i> <strong>Periodo:</strong> {{ \Carbon\Carbon::parse($viaggio->data_inizio)->format('d F Y') }} - {{ \Carbon\Carbon::parse($viaggio->data_fine)->format('d F Y') }}
                         </p>
-                        <p class="card-text">
-                            <i class="fas fa-align-left"></i> <strong>Dettagli:</strong> {{ $viaggio->dettagli }}
-                        </p>
 
-                        <!-- Aggiunta della visualizzazione dell'itinerario -->
-                        <!-- Inizio della sezione itinerario -->
-                        <div class="card info-box"> <!-- Usa la classe info-box per mantenere lo stile -->
-                            <div class="card-header">
-                                <h4><i class="fas fa-route"></i> Itinerario</h4>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group itinerary-list">
-                                    @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
-                                        @foreach($viaggio->giornate as $giornata)
-                                            <li class="list-group-item">
-                                                <div class="giornata-details">
-                                                    <span class="giornata-date"><i class="fas fa-calendar-day"></i> {{ $giornata->data }}</span>
-                                                    <ul class="list-group tappe-list">
-                                                        @if($giornata->tappe && $giornata->tappe->isNotEmpty())
-                                                            @foreach($giornata->tappe as $tappa)
-                                                                <li class="list-group-item tappa-item">{{ $tappa->titolo }}: {{ $tappa->descrizione }}</li>
-                                                            @endforeach
-                                                        @else
-                                                            <li class="list-group-item">Nessuna tappa disponibile</li>
-                                                        @endif
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    @else
-                                        <li class="list-group-item">Nessuna giornata disponibile</li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Fine della sezione itinerario -->
+
                     </div>
                     <div class="card-footer">
                         <div class="d-flex align-items-center justify-content-start">
