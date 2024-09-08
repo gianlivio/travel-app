@@ -1,5 +1,4 @@
 @auth
-
 @extends('layouts.app')
 
 @section('content')
@@ -9,12 +8,14 @@
         <source src="{{ asset('videos/loop1.mp4') }}" type="video/mp4">
     </video>
 </div>
+
 <div class="header-section">
     <h3>{{ $viaggio->titolo }}</h3>
 </div>
 
 <div class="container my-4">
-    
+
+    <!-- Sezione per l'immagine -->
     @if($viaggio->immagine)
         <div class="text-center mb-4">
             <img src="{{ asset('storage/' . $viaggio->immagine) }}" alt="Immagine Viaggio" class="img-fluid rounded" style="max-width: 80%;">
@@ -25,7 +26,7 @@
 
     <!-- Contenitore Flex per le informazioni e l'itinerario con dimensioni limitate -->
     <div class="d-flex flex-column flex-lg-row gap-4 mt-4">
-        <!-- Inizio della sezione informazioni con dimensioni limitate -->
+        <!-- Inizio della sezione informazioni -->
         <div class="card flex-fill" style="max-width: 500px;">
             <div class="card-header">
                 <h4><i class="fas fa-info-circle"></i> Informazioni sul Viaggio</h4>
@@ -44,7 +45,7 @@
                         </p>
                     </div>
                     <div class="col-12 mb-2">
-                        <p><i class="fas fa-info-circle"></i> <strong>Dettagli:</strong> {{ $viaggio->dettagli }}</p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Dettagli:</strong> {{ $viaggio->dettagli ?? 'Nessun dettaglio disponibile' }}</p>
                     </div>
                 </div>
             </div>
@@ -52,42 +53,47 @@
         <!-- Fine della sezione informazioni -->
 
         <!-- Inizio della sezione itinerario -->
-        <div class="card info-box"> <!-- Usa la classe info-box per mantenere lo stile -->
-            <div class="card-header">
-                <h4><i class="fas fa-route"></i> Itinerario</h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-group itinerary-list">
+            <div class="card flex-fill info-box">
+                <div class="card-header">
+                    <h4><i class="fas fa-route"></i> Itinerario</h4>
+                </div>
+                <div class="card-body">
                     @if($viaggio->giornate && $viaggio->giornate->isNotEmpty())
-                        @foreach($viaggio->giornate as $giornata)
-                            <li class="list-group-item">
-                                <div class="giornata-details">
-                                    <span class="giornata-date"><i class="fas fa-calendar-day"></i> {{ $giornata->data }}</span>
-                                    <ul class="list-group tappe-list">
-                                        @if($giornata->tappe && $giornata->tappe->isNotEmpty())
+                        <ul class="list-group itinerary-list">
+                            @foreach($viaggio->giornate as $giornata)
+                                <li class="list-group-item">
+                                    <div class="giornata-details mb-2">
+                                        <strong><i class="fas fa-calendar-day"></i> Giornata:</strong> {{ \Carbon\Carbon::parse($giornata->data)->format('d F Y') }}
+                                    </div>
+                                    @if($giornata->tappe && $giornata->tappe->isNotEmpty())
+                                        <ul class="list-group tappe-list">
                                             @foreach($giornata->tappe as $tappa)
-                                                <li class="list-group-item tappa-item">{{ $tappa->titolo }}: {{ $tappa->descrizione }}</li>
+                                                <li class="list-group-item">
+                                                    <strong>{{ $tappa->titolo }}</strong>
+                                                    <p>{{ $tappa->descrizione ?? 'Nessuna descrizione disponibile' }}</p> <!-- Aggiungi la descrizione qui -->
+                                                </li>
                                             @endforeach
-                                        @else
-                                            <li class="list-group-item">Nessuna tappa disponibile</li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            </li>
-                        @endforeach
+                                        </ul>
+                                    @else
+                                        <p class="text-muted">Nessuna tappa disponibile per questa giornata</p>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
                     @else
-                        <li class="list-group-item">Nessuna giornata disponibile</li>
+                        <p class="text-muted">Nessun itinerario disponibile</p>
                     @endif
-                </ul>
+                </div>
             </div>
-        </div>
-        <!-- Fine della sezione itinerario -->
-            </div>
+            <!-- Fine della sezione itinerario -->
+    </div>
 
+    <!-- Pulsanti di Azione -->
     <div class="mt-4 text-center">
         <a href="{{ route('admin.viaggi.edit', $viaggio->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifica</a>
         <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary"><i class="fas fa-list"></i> Torna alla lista</a>
     </div>
 </div>
+
 @endsection
 @endauth

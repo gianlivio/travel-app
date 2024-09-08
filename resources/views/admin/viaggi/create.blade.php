@@ -81,7 +81,10 @@
                                     <div class="form-group">
                                         <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
                                         <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
-                                        <textarea type="text" class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                                        <input type="hidden" name="giornate[0][tappe][0][meta]" class="meta-input">
+                                        <div class="autocomplete-results"></div>
+                                        <!-- Campo per Dettagli -->
+                                        <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Dettagli"></textarea>
                                     </div>
                                      <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
                                      <button type="button" class="btn btn-primary remove-tappa-button mb-2">Rimuovi Tappa</button>

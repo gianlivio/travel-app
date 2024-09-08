@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="form-group">
                             <label for="giornate[${giornataIndex}][tappe][0][titolo]">Tappa 1</label>
                             <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][titolo]" placeholder="Titolo Tappa">
+                            <input type="hidden" name="giornate[${giornataIndex}][tappe][0][meta]" class="meta-input">
+                            <div class="autocomplete-results"></div>
+                            <!-- Campo per Dettagli -->
                             <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
                             <button type="button" class="btn btn-primary remove-tappa-button">Rimuovi Tappa</button>
                         </div>
@@ -54,13 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="btn btn-primary add-tappa-button" data-giornata-index="${giornataIndex}">Aggiungi Tappa</button>
                 `;
                 giornateContainer.appendChild(newGiornata);
-
+        
                 const addTappaButton = newGiornata.querySelector('.add-tappa-button');
                 addTappaButton.addEventListener('click', function() {
                     addTappa(giornataIndex, newGiornata.querySelector('.tappe-container'));
                 });
-
-                // Aggiungi l'evento click per i nuovi bottoni "Rimuovi Tappa"
+        
+                // Aggiungi l'evento per rimuovere tappe
                 newGiornata.querySelectorAll('.remove-tappa-button').forEach(button => {
                     button.addEventListener('click', function() {
                         const giornataElement = button.closest('.giornata');
@@ -68,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         reorderTappe(giornataElement); // Aggiorna gli indici delle tappe
                     });
                 });
+        
+                // Aggiungi autocompletamento per la prima tappa della nuova giornata
+                const tappaInput = newGiornata.querySelector('input[name$="[titolo]"]');
+                const hiddenField = newGiornata.querySelector('input[name$="[meta]"]');
+                enableAutocompleteForTappa(tappaInput, hiddenField);
             } else {
                 alert('Puoi aggiungere fino a 10 giornate per viaggio.');
             }
@@ -92,7 +100,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Funzione per aggiungere una nuova tappa
+     // Funzione per gestire l'autocompletamento delle tappe
+     function enableAutocompleteForTappa(inputElement, hiddenField) {
+        inputElement.addEventListener('input', function() {
+            const query = this.value;
+            const resultsDiv = document.createElement('div');
+            resultsDiv.classList.add('list-group', 'autocomplete-results');
+    
+            // Rimuovi risultati precedenti
+            const existingResultsDiv = inputElement.parentNode.querySelector('.autocomplete-results');
+            if (existingResultsDiv) {
+                existingResultsDiv.remove();
+            }
+    
+            if (query.length > 2) {
+                const url = `https://api.tomtom.com/search/2/search/${query}.json?key=${TOMTOM_API_KEY}`;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        resultsDiv.innerHTML = ''; // Svuota i risultati precedenti
+    
+                        data.results.forEach(result => {
+                            const resultItem = document.createElement('a');
+                            resultItem.href = '#';
+                            resultItem.classList.add('list-group-item', 'list-group-item-action');
+                            resultItem.innerText = result.address.freeformAddress;
+    
+                            resultItem.addEventListener('click', function(e) {
+                                e.preventDefault(); // Previene il comportamento predefinito del link
+                                inputElement.value = result.address.freeformAddress;
+                                hiddenField.value = result.address.freeformAddress;
+    
+                                // Rimuovi i risultati dopo la selezione
+                                resultsDiv.remove();
+    
+                                // Impedisci la propagazione dell'evento click
+                                e.stopPropagation();
+                            });
+    
+                            resultsDiv.appendChild(resultItem);
+                        });
+    
+                        inputElement.parentNode.appendChild(resultsDiv); // Aggiungi risultati al DOM
+    
+                        // Chiudi i suggerimenti se l'utente clicca fuori
+                        document.addEventListener('click', function handleClickOutside(event) {
+                            if (!resultsDiv.contains(event.target) && !inputElement.contains(event.target)) {
+                                resultsDiv.remove(); // Rimuovi la lista se si clicca all'esterno
+                                document.removeEventListener('click', handleClickOutside);
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Errore nella ricerca della posizione:', error));
+            }
+        });
+    }
+
+    // Aggiungi autocompletamento per tutte le tappe esistenti
+    function addAutocompleteToAllTappe() {
+        document.querySelectorAll('.tappe-container').forEach(tappaContainer => {
+            const tappaInput = tappaContainer.querySelector('input[name$="[titolo]"]');
+            const hiddenField = tappaContainer.querySelector('input[name$="[meta]"]');
+            enableAutocompleteForTappa(tappaInput, hiddenField);
+        });
+    }
+
+    addAutocompleteToAllTappe();  // Aggiungi autocompletamento alle tappe già presenti al caricamento della pagina
+
     function addTappa(giornataIndex, tappaContainer) {
         let tappaCount = tappaContainer.querySelectorAll('.form-group').length;
         if (tappaCount < maxSteps) {
@@ -101,12 +175,20 @@ document.addEventListener('DOMContentLoaded', function() {
             newTappa.innerHTML = `
                 <label for="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]">Tappa ${tappaCount + 1}</label>
                 <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][titolo]" placeholder="Titolo Tappa">
+                <input type="hidden" name="giornate[${giornataIndex}][tappe][${tappaCount}][meta]" class="meta-input">
+                <div class="autocomplete-results"></div>
+                <!-- Campo per Dettagli -->
                 <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][${tappaCount}][descrizione]" placeholder="Descrizione Tappa"></textarea>
                 <button type="button" class="btn btn-primary remove-tappa-button">Rimuovi Tappa</button>
             `;
             tappaContainer.appendChild(newTappa);
-
-            // Aggiungi l'evento click per il nuovo bottone "Rimuovi Tappa"
+    
+            // Aggiungi autocompletamento alla nuova tappa
+            const tappaInput = newTappa.querySelector('input[name$="[titolo]"]');
+            const hiddenField = newTappa.querySelector('input[name$="[meta]"]');
+            enableAutocompleteForTappa(tappaInput, hiddenField);
+    
+            // Aggiungi evento per rimuovere la tappa
             newTappa.querySelector('.remove-tappa-button').addEventListener('click', function() {
                 newTappa.remove();
                 reorderTappe(tappaContainer.closest('.giornata')); // Aggiorna gli indici delle tappe

@@ -106,11 +106,10 @@ class ViaggioController extends Controller
                 'giornate.*.tappe.*.titolo' => 'required|string|max:255',
                 'giornate.*.tappe.*.descrizione' => 'nullable|string',
             ]);
-
+    
             $dates = explode(' - ', $request->input('date_range'));
-
             $viaggio = Viaggio::findOrFail($id);
-
+    
             if ($request->hasFile('immagine')) {
                 if ($viaggio->immagine && Storage::exists('public/' . $viaggio->immagine)) {
                     Storage::delete('public/' . $viaggio->immagine);
@@ -118,7 +117,7 @@ class ViaggioController extends Controller
                 $imagePath = $request->file('immagine')->store('viaggi_images', 'public');
                 $viaggio->immagine = $imagePath;
             }
-
+    
             $viaggio->update([
                 'titolo' => $request->input('titolo'),
                 'meta' => $request->input('meta'),
@@ -128,65 +127,63 @@ class ViaggioController extends Controller
                 'dettagli' => $request->input('dettagli'),
                 'immagine' => $imagePath ?? $viaggio->immagine,
             ]);
-
-            // Aggiornamento delle giornate
+    
+            // Ottieni gli ID delle giornate esistenti prima dell'aggiornamento
             $existingGiornataIds = $viaggio->giornate()->pluck('id')->toArray();
-
+    
+            // Loop per le giornate inviate dal form
             foreach ($request->input('giornate') as $giornataData) {
                 if (isset($giornataData['id'])) {
+                    // Aggiorna la giornata esistente
                     $giornata = Giornata::find($giornataData['id']);
-                    if (!$giornata) {
-                        continue;
+                    if ($giornata) {
+                        $giornata->update([
+                            'data' => $giornataData['data'],
+                        ]);
                     }
                 } else {
+                    // Crea una nuova giornata
                     $giornata = $viaggio->giornate()->create([
                         'data' => $giornataData['data'],
                     ]);
                 }
-
-                $giornata->data = $giornataData['data'];
-                $giornata->save();
-
-                if (($key = array_search($giornata->id, $existingGiornataIds)) !== false) {
-                    unset($existingGiornataIds[$key]);
-                }
-
-                // Aggiorna le tappe per la giornata corrente
+    
+                // Ottieni gli ID delle tappe esistenti
                 $existingTappaIds = $giornata->tappe()->pluck('id')->toArray();
-
+    
+                // Aggiorna o crea le tappe
                 if (isset($giornataData['tappe'])) {
                     foreach ($giornataData['tappe'] as $tappaData) {
                         if (isset($tappaData['id'])) {
+                            // Aggiorna la tappa esistente
                             $tappa = Tappa::find($tappaData['id']);
-                            if (!$tappa) {
-                                continue;
+                            if ($tappa) {
+                                $tappa->update($tappaData);
                             }
                         } else {
-                            $tappa = $giornata->tappe()->create([
-                                'titolo' => $tappaData['titolo'],
-                                'descrizione' => $tappaData['descrizione'] ?? '',
-                                'immagine' => $tappaData['immagine'] ?? null,
-                                'cibo' => $tappaData['cibo'] ?? '',
-                                'curiosita' => $tappaData['curiosita'] ?? '',
-                            ]);
+                            // Crea una nuova tappa
+                            $giornata->tappe()->create($tappaData);
                         }
-
-                        $tappa->fill($tappaData);
-                        $tappa->save();
-
+    
+                        // Rimuovi la tappa dall'elenco esistente, poiché è stata aggiornata
                         if (($key = array_search($tappa->id, $existingTappaIds)) !== false) {
                             unset($existingTappaIds[$key]);
                         }
                     }
                 }
-
-                // Elimina le tappe non più esistenti
+    
+                // Elimina le tappe che non sono più presenti
                 Tappa::destroy($existingTappaIds);
+    
+                // Rimuovi la giornata dall'elenco esistente, poiché è stata aggiornata
+                if (($key = array_search($giornata->id, $existingGiornataIds)) !== false) {
+                    unset($existingGiornataIds[$key]);
+                }
             }
-
-            // Elimina le giornate non più esistenti
+    
+            // Elimina le giornate che non sono più presenti
             Giornata::destroy($existingGiornataIds);
-
+    
             return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
         } catch (\Exception $e) {
             \Log::error('Errore nell\'aggiornamento del viaggio: ' . $e->getMessage());
