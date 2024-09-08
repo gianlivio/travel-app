@@ -161,9 +161,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Aggiungi autocompletamento per tutte le tappe esistenti
     function addAutocompleteToAllTappe() {
-        document.querySelectorAll('.tappe-container').forEach(tappaContainer => {
-            const tappaInput = tappaContainer.querySelector('input[name$="[titolo]"]');
-            const hiddenField = tappaContainer.querySelector('input[name$="[meta]"]');
+        document.querySelectorAll('.tappe-container .form-group').forEach(tappa => {
+            const tappaInput = tappa.querySelector('input[name$="[titolo]"]');
+            const hiddenField = tappa.querySelector('input[name$="[meta]"]');
             enableAutocompleteForTappa(tappaInput, hiddenField);
         });
     }
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             tappaContainer.appendChild(newTappa);
     
-            // Aggiungi autocompletamento alla nuova tappa
+            // Applica autocompletamento alla nuova tappa
             const tappaInput = newTappa.querySelector('input[name$="[titolo]"]');
             const hiddenField = newTappa.querySelector('input[name$="[meta]"]');
             enableAutocompleteForTappa(tappaInput, hiddenField);
