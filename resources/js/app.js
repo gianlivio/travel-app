@@ -348,36 +348,5 @@ $(function() {
 });
 
 
-document.getElementById('search-location').addEventListener('input', function() {
-    const query = this.value;
-    if (query.length > 2) {
-        const url = `https://api.tomtom.com/search/2/search/${query}.json?key=${TOMTOM_API_KEY}`;
-        console.log('URL:', url);  // Aggiungi questo log per controllare se il link è corretto
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log('API Response:', data);  // Aggiungi questo log per verificare la risposta
-                const resultsDiv = document.getElementById('location-results');
-                resultsDiv.innerHTML = '';  // Svuota i risultati precedenti
 
-                data.results.forEach(result => {
-                    const resultItem = document.createElement('a');
-                    resultItem.href = '#';
-                    resultItem.classList.add('list-group-item', 'list-group-item-action');
-                    resultItem.innerText = result.address.freeformAddress;
-
-                    // Al click sul suggerimento, sostituisce il testo digitato con il suggerimento selezionato
-                    resultItem.addEventListener('click', function(e) {
-                        e.preventDefault();  // Previene il comportamento predefinito del link
-                        document.getElementById('search-location').value = result.address.freeformAddress;
-                        document.getElementById('selected-location').value = result.address.freeformAddress;
-                        resultsDiv.innerHTML = '';  // Cancella i risultati dopo la selezione
-                    });
-
-                    resultsDiv.appendChild(resultItem);
-                });
-            })
-            .catch(error => console.error('Errore nella ricerca della posizione:', error));
-    }
-});
 

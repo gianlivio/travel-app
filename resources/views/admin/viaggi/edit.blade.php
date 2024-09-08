@@ -32,13 +32,7 @@
                             <label for="titolo"><i class="fas fa-pen"></i> Nome dell'avventura</label>
                             <input type="text" class="form-control" id="titolo" name="titolo" value="{{ old('titolo', $viaggio->titolo) }}" required>
                         </div>
-                        <div class="form-group">
-                            <label for="search-location">Cerca Città/Indirizzo</label>
-                            <input type="text" id="search-location" class="form-control" placeholder="Inserisci città o indirizzo">
-                        </div>
-                        <div id="location-results" class="list-group"></div>
-                        <!-- Campo nascosto per salvare l'indirizzo selezionato -->
-                        <input type="hidden" id="selected-location" name="meta" value="{{ old('meta') }}">
+                        
                         <div class="form-group mb-2">
                             <label for="durata"><i class="fas fa-clock"></i> Durata (giorni)</label>
                             <input type="number" class="form-control" id="durata" name="durata" value="{{ old('durata', $viaggio->durata) }}" required>

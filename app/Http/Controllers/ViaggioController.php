@@ -27,7 +27,7 @@ class ViaggioController extends Controller
         try {
             $request->validate([
                 'titolo' => 'required|string|max:255',
-                'meta' => 'required|string|max:255',
+                // Rimuovi la validazione di 'meta'
                 'durata' => 'required|integer',
                 'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
@@ -42,10 +42,9 @@ class ViaggioController extends Controller
             // Prima unifica data inizio fine in date range
             $dates = explode(' - ', $request->input('date_range'));
     
-            // Crea il viaggio
+            // Crea il viaggio senza il campo 'meta'
             $viaggio = Viaggio::create([
                 'titolo' => $request->input('titolo'),
-                'meta' => $request->input('meta'),
                 'durata' => $request->input('durata'),
                 'data_inizio' => $dates[0], 
                 'data_fine' => $dates[1],    
@@ -110,7 +109,7 @@ class ViaggioController extends Controller
         try {
             $request->validate([
                 'titolo' => 'required|string|max:255',
-                'meta' => 'required|string|max:255',
+                // Rimuovi la validazione di 'meta'
                 'durata' => 'required|integer',
                 'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
@@ -134,9 +133,9 @@ class ViaggioController extends Controller
                 $viaggio->immagine = $imagePath;
             }
 
+            // Aggiorna il viaggio senza il campo 'meta'
             $viaggio->update([
                 'titolo' => $request->input('titolo'),
-                'meta' => $request->input('meta'),
                 'durata' => $request->input('durata'),
                 'data_inizio' => $dates[0],
                 'data_fine' => $dates[1],
@@ -144,7 +143,7 @@ class ViaggioController extends Controller
                 'immagine' => $imagePath ?? $viaggio->immagine,
             ]);
 
-            // Aggiornamento delle giornate
+            // Aggiornamento delle giornate e delle tappe (rimane invariato)
             $existingGiornataIds = $viaggio->giornate()->pluck('id')->toArray();
 
             foreach ($request->input('giornate') as $giornataData) {
