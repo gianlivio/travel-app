@@ -4,6 +4,7 @@ import.meta.glob(["../img/**"]);
 import * as bootstrap from "bootstrap";
 
 document.addEventListener('DOMContentLoaded', function() {
+    
     const maxSteps = 10;
     const maxDays = 10;
     const giornateContainer = document.getElementById('giornate-container');
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (giornateContainer && addGiornataButton) {
         let giornataCount = giornateContainer.querySelectorAll('.giornata').length;
 
-        // Aggiungi l'evento click per il primo bottone "Aggiungi Tappa"
+        // Aggiungi evento per tappe esistenti al caricamento della pagina
         giornateContainer.querySelectorAll('.add-tappa-button').forEach(button => {
             button.addEventListener('click', function() {
                 const giornataIndex = button.dataset.giornataIndex;
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Aggiungi l'evento click per il primo bottone "Rimuovi Tappa"
+        // Rimuovi tappa
         giornateContainer.querySelectorAll('.remove-tappa-button').forEach(button => {
             button.addEventListener('click', function() {
                 const giornataElement = button.closest('.giornata');
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
+        // Aggiungi nuova giornata
         addGiornataButton.addEventListener('click', function() {
             if (giornataCount < maxDays) {
                 const giornataIndex = giornataCount;
@@ -58,12 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 giornateContainer.appendChild(newGiornata);
         
+                // Aggiungi evento per aggiungere tappe
                 const addTappaButton = newGiornata.querySelector('.add-tappa-button');
                 addTappaButton.addEventListener('click', function() {
                     addTappa(giornataIndex, newGiornata.querySelector('.tappe-container'));
                 });
         
-                // Aggiungi l'evento per rimuovere tappe
+                // Aggiungi evento per rimuovere tappa
                 newGiornata.querySelectorAll('.remove-tappa-button').forEach(button => {
                     button.addEventListener('click', function() {
                         const giornataElement = button.closest('.giornata');
@@ -71,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         reorderTappe(giornataElement); // Aggiorna gli indici delle tappe
                     });
                 });
-        
-                // Aggiungi autocompletamento per la prima tappa della nuova giornata
+
+                // Aggiungi autocompletamento alla prima tappa
                 const tappaInput = newGiornata.querySelector('input[name$="[titolo]"]');
                 const hiddenField = newGiornata.querySelector('input[name$="[meta]"]');
                 enableAutocompleteForTappa(tappaInput, hiddenField);
@@ -82,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Contatore caratteri per i dettagli
     if (dettagliTextarea) {
         charCountDisplay = document.createElement('div');
         charCountDisplay.className = 'char-count';
@@ -100,8 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-     // Funzione per gestire l'autocompletamento delle tappe
-     function enableAutocompleteForTappa(inputElement, hiddenField) {
+    // Funzione per l'autocompletamento
+    function enableAutocompleteForTappa(inputElement, hiddenField) {
         inputElement.addEventListener('input', function() {
             const query = this.value;
             const resultsDiv = document.createElement('div');
@@ -134,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 // Rimuovi i risultati dopo la selezione
                                 resultsDiv.remove();
     
-                                // Impedisci la propagazione dell'evento click
                                 e.stopPropagation();
                             });
     
@@ -146,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Chiudi i suggerimenti se l'utente clicca fuori
                         document.addEventListener('click', function handleClickOutside(event) {
                             if (!resultsDiv.contains(event.target) && !inputElement.contains(event.target)) {
-                                resultsDiv.remove(); // Rimuovi la lista se si clicca all'esterno
+                                resultsDiv.remove();
                                 document.removeEventListener('click', handleClickOutside);
                             }
                         });
@@ -165,8 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    addAutocompleteToAllTappe();  // Aggiungi autocompletamento alle tappe già presenti al caricamento della pagina
+    addAutocompleteToAllTappe();  // Aggiungi autocompletamento alle tappe già presenti
 
+    // Funzione per aggiungere una nuova tappa
     function addTappa(giornataIndex, tappaContainer) {
         let tappaCount = tappaContainer.querySelectorAll('.form-group').length;
         if (tappaCount < maxSteps) {
@@ -191,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Aggiungi evento per rimuovere la tappa
             newTappa.querySelector('.remove-tappa-button').addEventListener('click', function() {
                 newTappa.remove();
-                reorderTappe(tappaContainer.closest('.giornata')); // Aggiorna gli indici delle tappe
+                reorderTappe(tappaContainer.closest('.giornata'));
             });
         } else {
             alert('Puoi aggiungere fino a 10 tappe per giornata.');
@@ -217,7 +221,70 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // --- CODICE PER LA MAPPA ---
+
+    const mapContainer = document.getElementById('map');
+
+    if (mapContainer) {
+        const tappeData = JSON.parse(mapContainer.dataset.tappe);
+
+        if (TOMTOM_API_KEY) {
+            var map = tt.map({
+                key: TOMTOM_API_KEY,
+                container: 'map',
+                center: [12.4964, 41.9028], // Centro iniziale su Roma
+                zoom: 5
+            });
+
+            const bounds = new tt.LngLatBounds();
+            const coordinates = [];
+
+            tappeData.forEach(tappa => {
+                if (tappa.latitude && tappa.longitude) {
+                    new tt.Marker()
+                        .setLngLat([tappa.longitude, tappa.latitude])
+                        .addTo(map);
+
+                    coordinates.push([tappa.longitude, tappa.latitude]);
+                    bounds.extend([tappa.longitude, tappa.latitude]);
+                }
+            });
+
+            if (tappeData.length > 0) {
+                map.fitBounds(bounds, { padding: 50 });
+            }
+
+            if (coordinates.length > 1) {
+                map.addLayer({
+                    id: 'route-line',
+                    type: 'line',
+                    source: {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: coordinates
+                            }
+                        }
+                    },
+                    layout: {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    paint: {
+                        'line-color': '#FF0000',
+                        'line-width': 3
+                    }
+                });
+            }
+        } else {
+            console.error('TomTom API Key non è stata trovata.');
+        }
+    }
 });
+
 
 $(function() {
     // Inizializzazione delle date di inizio e fine con valori di default
@@ -313,3 +380,4 @@ document.getElementById('search-location').addEventListener('input', function() 
             .catch(error => console.error('Errore nella ricerca della posizione:', error));
     }
 });
+

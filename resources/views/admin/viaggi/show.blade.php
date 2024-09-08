@@ -24,8 +24,10 @@
         <p class="text-center text-muted">Nessuna Immagine disponibile</p>
     @endif
 
+    
     <!-- Contenitore Flex per le informazioni e l'itinerario con dimensioni limitate -->
     <div class="d-flex flex-column flex-lg-row gap-4 mt-4">
+        
         <!-- Inizio della sezione informazioni -->
         <div class="card flex-fill" style="max-width: 500px;">
             <div class="card-header">
@@ -86,7 +88,11 @@
                 </div>
             </div>
             <!-- Fine della sezione itinerario -->
+
     </div>
+
+    <!-- Sezione per la Mappa -->
+    <div id="map" data-tappe='@json($tappe)' style="width: 100%; height: 400px;" class="mb-4"></div>
 
     <!-- Pulsanti di Azione -->
     <div class="mt-4 text-center">
@@ -94,6 +100,11 @@
         <a href="{{ route('admin.viaggi.index') }}" class="btn btn-secondary"><i class="fas fa-list"></i> Torna alla lista</a>
     </div>
 </div>
+<script>
+    
+    const TOMTOM_API_KEY = "{{ env('TOMTOM_API_KEY') }}";
+</script>
+
 
 @endsection
 @endauth

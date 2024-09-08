@@ -81,7 +81,22 @@ class ViaggioController extends Controller
     public function show($id)
     {
         $viaggio = Viaggio::with('giornate.tappe')->findOrFail($id);
-        return view('admin.viaggi.show', compact('viaggio'));
+
+        // Prepara le tappe con latitudine e longitudine
+        $tappe = [];
+        foreach ($viaggio->giornate as $giornata) {
+            foreach ($giornata->tappe as $tappa) {
+                if ($tappa->latitude && $tappa->longitude) {
+                    $tappe[] = [
+                        'latitude' => $tappa->latitude,
+                        'longitude' => $tappa->longitude,
+                        'titolo' => $tappa->titolo
+                    ];
+                }
+            }
+        }
+
+        return view('admin.viaggi.show', compact('viaggio', 'tappe'));
     }
 
     public function edit($id)
