@@ -34,9 +34,6 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 mb-2">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Meta:</strong> {{ $viaggio->meta }}</p>
-                    </div>
-                    <div class="col-12 mb-2">
                         <p><i class="fas fa-clock"></i> <strong>Durata:</strong> {{ $viaggio->durata }} giorni</p>
                     </div>
                     <div class="col-12 mb-2">

@@ -27,7 +27,6 @@ class ViaggioController extends Controller
         try {
             $request->validate([
                 'titolo' => 'required|string|max:255',
-                'meta' => 'required|string|max:255',
                 'durata' => 'required|integer',
                 'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
@@ -45,7 +44,6 @@ class ViaggioController extends Controller
             // Crea il viaggio
             $viaggio = Viaggio::create([
                 'titolo' => $request->input('titolo'),
-                'meta' => $request->input('meta'),
                 'durata' => $request->input('durata'),
                 'data_inizio' => $dates[0], 
                 'data_fine' => $dates[1],    
@@ -95,7 +93,6 @@ class ViaggioController extends Controller
         try {
             $request->validate([
                 'titolo' => 'required|string|max:255',
-                'meta' => 'required|string|max:255',
                 'durata' => 'required|integer',
                 'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
@@ -120,7 +117,6 @@ class ViaggioController extends Controller
     
             $viaggio->update([
                 'titolo' => $request->input('titolo'),
-                'meta' => $request->input('meta'),
                 'durata' => $request->input('durata'),
                 'data_inizio' => $dates[0],
                 'data_fine' => $dates[1],
