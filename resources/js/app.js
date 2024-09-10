@@ -111,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const resultsDiv = document.createElement('div');
             resultsDiv.classList.add('list-group', 'autocomplete-results');
     
-            // Rimuovi risultati precedenti
             const existingResultsDiv = inputElement.parentNode.querySelector('.autocomplete-results');
             if (existingResultsDiv) {
                 existingResultsDiv.remove();
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetch(url)
                     .then(response => response.json())
                     .then(data => {
-                        resultsDiv.innerHTML = ''; // Svuota i risultati precedenti
+                        resultsDiv.innerHTML = '';
     
                         data.results.forEach(result => {
                             const resultItem = document.createElement('a');
@@ -131,22 +130,19 @@ document.addEventListener('DOMContentLoaded', function() {
                             resultItem.innerText = result.address.freeformAddress;
     
                             resultItem.addEventListener('click', function(e) {
-                                e.preventDefault(); // Previene il comportamento predefinito del link
+                                e.preventDefault();
                                 inputElement.value = result.address.freeformAddress;
-                                hiddenField.value = result.address.freeformAddress;
+                                hiddenField.value = result.address.freeformAddress; // Popola il campo meta
     
-                                // Rimuovi i risultati dopo la selezione
                                 resultsDiv.remove();
-    
                                 e.stopPropagation();
                             });
     
                             resultsDiv.appendChild(resultItem);
                         });
     
-                        inputElement.parentNode.appendChild(resultsDiv); // Aggiungi risultati al DOM
+                        inputElement.parentNode.appendChild(resultsDiv);
     
-                        // Chiudi i suggerimenti se l'utente clicca fuori
                         document.addEventListener('click', function handleClickOutside(event) {
                             if (!resultsDiv.contains(event.target) && !inputElement.contains(event.target)) {
                                 resultsDiv.remove();

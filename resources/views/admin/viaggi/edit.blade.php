@@ -78,7 +78,7 @@
                                                     <label for="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]">Tappa {{ $tappaIndex + 1 }}</label>
                                                     <input type="text" class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][titolo]" value="{{ old("giornate.$giornataIndex.tappe.$tappaIndex.titolo", $tappa->titolo) }}" placeholder="Titolo Tappa">
                                                     <textarea type="text"class="form-control mb-2" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][descrizione]" placeholder="Descrizione Tappa">{{ old("giornate.$giornataIndex.tappe.$tappaIndex.descrizione", $tappa->descrizione) }}</textarea>
-                                                    <input type="hidden" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][id]" value="{{ $tappa->id }}">
+                                                    <input type="hidden" name="giornate[{{ $giornataIndex }}][tappe][{{ $tappaIndex }}][meta]" value="{{ old("giornate.$giornataIndex.tappe.$tappaIndex.meta", $tappa->meta) }}" class="meta-input">
                                                     <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
                                                     <button type="button" class="btn btn-danger remove-tappa-button">Rimuovi Tappa</button>
                                                 </div>

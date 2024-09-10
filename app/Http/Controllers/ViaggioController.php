@@ -27,7 +27,6 @@ class ViaggioController extends Controller
         try {
             $request->validate([
                 'titolo' => 'required|string|max:255',
-                // Rimuovi la validazione di 'meta'
                 'durata' => 'required|integer',
                 'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
@@ -39,15 +38,14 @@ class ViaggioController extends Controller
                 'giornate.*.tappe.*.descrizione' => 'required|string',
             ]);
     
-            // Prima unifica data inizio fine in date range
             $dates = explode(' - ', $request->input('date_range'));
     
-            // Crea il viaggio senza il campo 'meta'
+            // Crea il viaggio
             $viaggio = Viaggio::create([
                 'titolo' => $request->input('titolo'),
                 'durata' => $request->input('durata'),
-                'data_inizio' => $dates[0], 
-                'data_fine' => $dates[1],    
+                'data_inizio' => $dates[0],
+                'data_fine' => $dates[1],
                 'dettagli' => $request->input('dettagli'),
                 'immagine' => $request->file('immagine') ? $request->file('immagine')->store('viaggi_images', 'public') : null,
                 'user_id' => Auth::id(),
@@ -62,6 +60,7 @@ class ViaggioController extends Controller
                 foreach ($giornataData['tappe'] as $tappaData) {
                     $giornata->tappe()->create([
                         'titolo' => $tappaData['titolo'],
+                        'meta' => $tappaData['meta'] ?? '', // Aggiungi correttamente il campo meta
                         'descrizione' => $tappaData['descrizione'] ?? '',
                         'immagine' => $tappaData['immagine'] ?? null,
                         'cibo' => $tappaData['cibo'] ?? '',
@@ -109,7 +108,6 @@ class ViaggioController extends Controller
         try {
             $request->validate([
                 'titolo' => 'required|string|max:255',
-                // Rimuovi la validazione di 'meta'
                 'durata' => 'required|integer',
                 'date_range' => 'required|string',
                 'dettagli' => 'nullable|string',
@@ -122,7 +120,6 @@ class ViaggioController extends Controller
             ]);
 
             $dates = explode(' - ', $request->input('date_range'));
-
             $viaggio = Viaggio::findOrFail($id);
 
             if ($request->hasFile('immagine')) {
@@ -133,7 +130,6 @@ class ViaggioController extends Controller
                 $viaggio->immagine = $imagePath;
             }
 
-            // Aggiorna il viaggio senza il campo 'meta'
             $viaggio->update([
                 'titolo' => $request->input('titolo'),
                 'durata' => $request->input('durata'),
@@ -143,7 +139,6 @@ class ViaggioController extends Controller
                 'immagine' => $imagePath ?? $viaggio->immagine,
             ]);
 
-            // Aggiornamento delle giornate e delle tappe (rimane invariato)
             $existingGiornataIds = $viaggio->giornate()->pluck('id')->toArray();
 
             foreach ($request->input('giornate') as $giornataData) {
@@ -194,11 +189,11 @@ class ViaggioController extends Controller
                     }
                 }
 
-                // Elimina le tappe non più esistenti
+                // Elimina le tappe non più presenti nel form
                 Tappa::destroy($existingTappaIds);
             }
 
-            // Elimina le giornate non più esistenti
+            // Elimina le giornate non più presenti nel form
             Giornata::destroy($existingGiornataIds);
 
             return redirect()->route('admin.viaggi.index')->with('success', 'Viaggio aggiornato con successo');
