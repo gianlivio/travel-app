@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dettagliTextarea = document.getElementById('dettagli');
     const maxCharCount = 500;
     let charCountDisplay;
+    let removedTappe = [];
 
     if (giornateContainer && addGiornataButton) {
         let giornataCount = giornateContainer.querySelectorAll('.giornata').length;
@@ -27,9 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Rimuovi tappa
         giornateContainer.querySelectorAll('.remove-tappa-button').forEach(button => {
             button.addEventListener('click', function() {
-                const giornataElement = button.closest('.giornata');
+                const tappaIdField = button.closest('.form-group').querySelector('input[name$="[id]"]');
+                if (tappaIdField && tappaIdField.value) {
+                    removedTappe.push(tappaIdField.value); // Aggiungi l'ID della tappa rimossa
+                    document.getElementById('removed-tappe').value = removedTappe.join(',');
+                }
                 button.closest('.form-group').remove();
-                reorderTappe(giornataElement); // Aggiorna gli indici delle tappe
+                reorderTappe(button.closest('.giornata')); // Aggiorna gli indici delle tappe
             });
         });
 
@@ -190,10 +195,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
             // Aggiungi evento per rimuovere la tappa
             newTappa.querySelector('.remove-tappa-button').addEventListener('click', function() {
+                const tappaIdField = newTappa.querySelector('input[name$="[id]"]');
+                if (tappaIdField && tappaIdField.value) {
+                    removedTappe.push(tappaIdField.value); // Aggiungi l'ID della tappa rimossa
+                    document.getElementById('removed-tappe').value = removedTappe.join(',');
+                }
                 newTappa.remove();
                 reorderTappe(tappaContainer.closest('.giornata'));
             });
-        } else {
+        }else {
             alert('Puoi aggiungere fino a 10 tappe per giornata.');
         }
     }

@@ -20,7 +20,7 @@
                             </div>
                         @endif
 
-                        {{ __('You are logged in!') }}
+                        {{ __('Sei dentro!!') }}
 
                         
                     </div>

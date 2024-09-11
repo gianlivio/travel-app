@@ -74,6 +74,8 @@
                                         <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
                                         <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
                                         <input type="hidden" name="giornate[0][tappe][0][meta]" class="meta-input"> <!-- Campo meta nascosto -->
+                                        <input type="hidden" id="removed-tappe" name="removed_tappe" value="">
+
                                         <div class="autocomplete-results"></div>
                                         <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
                                     </div>

@@ -129,6 +129,11 @@ class ViaggioController extends Controller
                 $imagePath = $request->file('immagine')->store('viaggi_images', 'public');
                 $viaggio->immagine = $imagePath;
             }
+             // Elimina le tappe rimosse
+            if ($request->has('removed_tappe')) {
+                $removedTappeIds = explode(',', $request->input('removed_tappe'));
+                Tappa::destroy($removedTappeIds);
+            }
 
             $viaggio->update([
                 'titolo' => $request->input('titolo'),
