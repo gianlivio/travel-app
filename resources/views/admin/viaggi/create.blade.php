@@ -74,6 +74,7 @@
                                         <label for="giornate[0][tappe][0][titolo]">Tappa 1</label>
                                         <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
                                         <input type="hidden" name="giornate[0][tappe][0][meta]" class="meta-input"> <!-- Campo meta nascosto -->
+                                        <input type="hidden" id="removed-giornate" name="removed_giornate" value="">
                                         <input type="hidden" id="removed-tappe" name="removed_tappe" value="">
 
                                         <div class="autocomplete-results"></div>
@@ -86,6 +87,7 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary mb-2" id="add-giornata-button"><i class="fas fa-plus"></i></button>
+                        
                     </div>
                 </div>
             </div>

@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const maxCharCount = 500;
     let charCountDisplay;
     let removedTappe = [];
+    let removedGiornate = [];
 
     if (giornateContainer && addGiornataButton) {
         let giornataCount = giornateContainer.querySelectorAll('.giornata').length;
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Rimuovi tappa
+        // Rimuovere tappa
         giornateContainer.querySelectorAll('.remove-tappa-button').forEach(button => {
             button.addEventListener('click', function() {
                 const tappaIdField = button.closest('.form-group').querySelector('input[name$="[id]"]');
@@ -35,6 +36,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 button.closest('.form-group').remove();
                 reorderTappe(button.closest('.giornata')); // Aggiorna gli indici delle tappe
+            });
+        });
+
+           // rimuovere le giornate
+           document.querySelectorAll('.remove-giornata-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const giornataElement = button.closest('.giornata');
+                const giornataIdField = giornataElement.querySelector('input[name$="[id]"]');
+        
+                if (giornataIdField && giornataIdField.value) {
+                    removedGiornate.push(giornataIdField.value); // Aggiungi l'ID della giornata rimossa
+                    document.getElementById('removed-giornate').value = removedGiornate.join(',');
+                }
+                giornataElement.remove(); // Rimuovi la giornata dal DOM
             });
         });
 
@@ -56,15 +71,27 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="text" class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][titolo]" placeholder="Titolo Tappa">
                             <input type="hidden" name="giornate[${giornataIndex}][tappe][0][meta]" class="meta-input">
                             <div class="autocomplete-results"></div>
-                            <!-- Campo per Dettagli -->
                             <textarea class="form-control mb-2" name="giornate[${giornataIndex}][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
                             <button type="button" class="btn btn-primary remove-tappa-button">Rimuovi Tappa</button>
                         </div>
                     </div>
                     <button type="button" class="btn btn-primary add-tappa-button" data-giornata-index="${giornataIndex}">Aggiungi Tappa</button>
+                    <button type="button" class="btn btn-danger remove-giornata-button">Rimuovi Giornata</button>
                 `;
                 giornateContainer.appendChild(newGiornata);
         
+                // Aggiungi evento per rimuovere la nuova giornata
+                newGiornata.querySelector('.remove-giornata-button').addEventListener('click', function() {
+                    const giornataElement = this.closest('.giornata');
+                    const giornataIdField = giornataElement.querySelector('input[name$="[id]"]');
+        
+                    if (giornataIdField && giornataIdField.value) {
+                        removedGiornate.push(giornataIdField.value); // Aggiungi l'ID della giornata rimossa
+                        document.getElementById('removed-giornate').value = removedGiornate.join(',');
+                    }
+                    giornataElement.remove(); // Rimuovi la giornata dal DOM
+                });
+                
                 // Aggiungi evento per aggiungere tappe
                 const addTappaButton = newGiornata.querySelector('.add-tappa-button');
                 addTappaButton.addEventListener('click', function() {
@@ -84,6 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const tappaInput = newGiornata.querySelector('input[name$="[titolo]"]');
                 const hiddenField = newGiornata.querySelector('input[name$="[meta]"]');
                 enableAutocompleteForTappa(tappaInput, hiddenField);
+                const removeGiornataButton = newGiornata.querySelector('.remove-giornata-button');
+                removeGiornataButton.addEventListener('click', function() {
+                    const giornataElement = removeGiornataButton.closest('.giornata');
+                    const giornataIdField = giornataElement.querySelector('input[name$="[id]"]');
+
+                    if (giornataIdField && giornataIdField.value) {
+                        removedGiornate.push(giornataIdField.value); // Aggiungi l'ID della giornata rimossa
+                        document.getElementById('removed-giornate').value = removedGiornate.join(',');
+                    }
+                    giornataElement.remove(); // Rimuovi la giornata
+                });
             } else {
                 alert('Puoi aggiungere fino a 10 giornate per viaggio.');
             }

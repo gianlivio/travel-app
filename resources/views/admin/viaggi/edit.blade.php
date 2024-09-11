@@ -100,7 +100,6 @@
                                             <input type="text" class="form-control mb-2" name="giornate[0][tappe][0][titolo]" placeholder="Titolo Tappa">
                                             <input type="hidden" name="giornate[0][tappe][0][meta]" class="meta-input">
                                             <input type="hidden" id="removed-tappe" name="removed_tappe" value="">
-
                                             <div class="autocomplete-results"></div>
                                             <!-- Campo per Dettagli -->
                                             <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Dettagli"></textarea>
@@ -113,6 +112,7 @@
                             @endif
                         </div>
                         <button type="button" class="btn btn-primary mb-2" id="add-giornata-button"><i class="fas fa-plus"></i></button>
+                       
                         
                     </div>
                 </div>

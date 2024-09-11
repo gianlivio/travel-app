@@ -134,6 +134,11 @@ class ViaggioController extends Controller
                 $removedTappeIds = explode(',', $request->input('removed_tappe'));
                 Tappa::destroy($removedTappeIds);
             }
+            // Elimina le giornate rimosse
+            if ($request->has('removed_giornate')) {
+                $removedGiornateIds = explode(',', $request->input('removed_giornate'));
+                Giornata::destroy($removedGiornateIds);
+            }
 
             $viaggio->update([
                 'titolo' => $request->input('titolo'),
