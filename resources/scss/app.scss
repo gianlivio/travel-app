@@ -361,6 +361,7 @@ select:focus {
     background-color: rgba(5, 45, 94, 0.2); 
     border-color: $primary-color; 
     outline: none; 
+    color: $text-color; 
     box-shadow: 0 0 5px rgba(5, 45, 94, 0.4); 
 }
 

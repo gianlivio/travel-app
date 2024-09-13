@@ -78,7 +78,7 @@
                                         <input type="hidden" id="removed-tappe" name="removed_tappe" value="">
 
                                         <div class="autocomplete-results"></div>
-                                        <textarea class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
+                                        <textarea type="text" class="form-control mb-2" name="giornate[0][tappe][0][descrizione]" placeholder="Descrizione Tappa"></textarea>
                                     </div>
                                      <!-- Aggiungi il pulsante "Rimuovi Tappa" -->
                                      <button type="button" class="btn btn-primary remove-tappa-button mb-2">Rimuovi Tappa</button>
