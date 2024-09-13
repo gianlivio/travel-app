@@ -3,13 +3,50 @@
 @import 'partials/variables';
 
 
-
 html, body {
     height: 100%;
 }
 
+// Allineo al centro la griglia e i contenitori flessibili
+.grid-container, .d-flex {
+    justify-content: center;
+}
 
-// Navbar Styles
+// Imposto la larghezza uniforme per immagine, mappa e sezioni informative
+.viaggio-media, .map-container, .info-box {
+    max-width: 800px; // Imposto la larghezza massima
+    width: 100%; 
+    margin: 0 auto; // Centro gli elementi orizzontalmente
+}
+
+// Gestisco le sezioni Informazioni e Itinerario, che rimangono affiancate
+.d-flex {
+    flex-wrap: wrap; // Su dispositivi piccoli, le sezioni andranno in colonna
+}
+
+// Gestisco le sezioni per dispositivi più grandi
+@media (min-width: 992px) {
+    .d-flex {
+        flex-direction: row; // Affianco le sezioni su schermi più grandi
+        justify-content: space-between; // Mantengo lo spazio tra le sezioni
+    }
+}
+
+// Stile per la mappa
+.map-container {
+    height: 400px; // Altezza fissa per la mappa
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); // Aggiungo ombra per migliorare il design
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px; // Aggiungo bordi arrotondati
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); // Ombreggiatura per coerenza con le card
+}
+
+// Stile della navbar
 .navbar {
     background-color: $navbar-bg-color;
     .navbar-brand {
@@ -39,15 +76,15 @@ html, body {
 
 // Stile per la scrollbar del box Itinerario
 .itinerary-scroll {
-    max-height: 300px; 
+    max-height: 300px; // Limito l'altezza massima del box
     overflow-y: auto;    
     overflow-x: hidden;    
-    padding-right: 15px; 
+    padding-right: 15px; // Spazio extra per la scrollbar
 }
 
-// Stile per i box delle informazioni e itinerario
+// Stile per i box delle informazioni e dell'itinerario
 .info-box, .itinerary-card {
-    min-height: 550px; 
+    min-height: 550px; // Imposto un'altezza minima
     height: auto;    
     overflow-y: auto; 
     background-color: rgba(5, 45, 94, 0.6);
@@ -58,13 +95,14 @@ html, body {
     margin-bottom: 20px;
 }
 
-// Stili dei titoli e card
+// Stile per titoli e card
 h1, .card-title {
     font-family: 'Roboto Slab', serif;
     font-weight: bold;
     color: $primary-color; 
 }
 
+// Stile della sezione header
 .header-section {
     background-color: hsl(211, 74%, 8%);
     color: white;
@@ -78,6 +116,8 @@ h1, .card-title {
         margin-bottom: 15px;
     }
 }
+
+// Video di background a schermo intero
 .video-background {
     position: fixed;
     top: 0;
@@ -88,12 +128,14 @@ h1, .card-title {
     overflow: hidden;
 }
 
+// Adatto il video allo schermo
 .video-background video {
     width: 100%;
     height: 100%;
     object-fit: cover;  
 }
 
+// Stile per la sezione header con background semi-trasparente
 .header-section {
     position: relative;  
     z-index: 1;  
@@ -103,7 +145,7 @@ h1, .card-title {
     background: rgba(0, 0, 0, 0.5);  
 }
 
-// Definizione dell'animazione
+// Definisco l'animazione di sfondo gradiente
 @keyframes gradient-animation {
     0% {
         background-position: 0% 50%;
@@ -116,10 +158,11 @@ h1, .card-title {
     }
 }
 
+// Stile per la card
 .card {
     width: 100%;
-    max-width: 500px;
-    min-height: 400px;
+    max-width: 600px; // Larghezza massima per la card
+    min-height: 500px; // Altezza minima
     overflow: hidden;
     background-color: rgba(5, 45, 94, 0.6); 
     color: $text-color;
@@ -129,28 +172,33 @@ h1, .card-title {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
+// Stile per l'immagine nella card
 .card-img-top {
     height: 250px;
-    object-fit: cover;
+    object-fit: cover; // Adatto l'immagine senza deformarla
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
+// Aggiungo l'effetto hover alla card
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px); // Sollevo la card
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+// Contenuto scorrevole della card
 .card-content {
     max-height: 150px;
     overflow-y: auto;
     padding-bottom: 10px; 
 }
 
+// Stile per il titolo della card
 .card-title {
     color: #fff;
 }
 
+// Stile per il footer della card
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -159,6 +207,7 @@ h1, .card-title {
     padding: 5px;
 }
 
+// Icone nel footer della card
 .card-footer .crud-icon {    
     border-radius: 50%;
     padding: 10px;
@@ -166,16 +215,18 @@ h1, .card-title {
     transition: background-color 0.3s; 
 }
 
+// Stile per i link nelle icone
 .crud-icon a {
     text-decoration: none;
 }
 
+// Margini per le colonne in dispositivi medi
 .row .col-md-4 {
     padding-left: 10px; 
     padding-right: 10px;
 }
 
-// Footer Styles
+// Stile per il footer
 footer {
     background-color: $footer-bg-color; 
     color: $footer-text-color; 
@@ -211,20 +262,25 @@ footer {
     }
 }
 
+// Contenitore overlay
 .overlay-container {
     position: relative;
     width: 100%;
 }
 
+// Stile per il textarea dei dettagli
 #dettagli {
-    min-height: 100px;
-    resize: vertical;
-    padding-bottom: 30px; 
+    min-height: 150px; // Aumento l'altezza minima per gestire più contenuto
+    resize: vertical; // Mantengo la possibilità di ridimensionare verticalmente
+    max-height: none; // Rimuovo qualsiasi limite di altezza
     width: 100%;
     background-color: rgba(5, 45, 94, 0.6);
     color: $text-color; 
+    overflow-y: auto; // Permetto lo scroll se il testo è molto lungo
+    padding-bottom: 30px; 
 }
 
+// Contatore di caratteri nel textarea
 .char-count {
     position: absolute;
     bottom: 5px;
@@ -235,6 +291,7 @@ footer {
     z-index: 10; 
 }
 
+// Stile per le liste dell'itinerario
 .itinerary-list, .tappe-list {
     list-style-type: none;
     padding: 0;
@@ -242,6 +299,7 @@ footer {
     border: none;
 }
 
+// Stile per le giornate nell'itinerario
 .giornata-details {
     padding: 10px;
     margin-bottom: 10px;
@@ -249,17 +307,20 @@ footer {
     border-radius: 5px;
 }
 
+// Stile per la data della giornata
 .giornata-date {
     font-weight: bold;
     color: $text-color;
 }
 
+// Stile per gli elementi delle tappe
 .tappa-item {
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 3px;
 }
 
+// Stile per la lista degli elementi
 .list-group-item {
     background-color: rgba(136, 176, 230, 0.6);
     color: $text-color;
@@ -269,7 +330,7 @@ footer {
     padding: 10px;
 }
 
-// Stili generali per input e textarea
+// Stile generale per input e textarea
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -287,7 +348,7 @@ select {
     font-family: 'Poppins', sans-serif; 
 }
 
-// Stile per quando il campo è in focus (per dare un feedback visivo)
+// Stile per l'input quando è in focus
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
@@ -303,6 +364,7 @@ select:focus {
     box-shadow: 0 0 5px rgba(5, 45, 94, 0.4); 
 }
 
+// Bottone per rimuovere le tappe
 .remove-tappa-button {
     background-color: $text-color !important; 
     border-color: $text-color !important;
@@ -314,6 +376,7 @@ select:focus {
     background-color: darken($text-color, 50%) !important; 
 }
 
+// Bottone per aggiungere le tappe
 .add-tappa-button {
     background-color: $primary-color !important;
     transition: background-color 0.3s ease; 
@@ -321,9 +384,9 @@ select:focus {
 
 .add-tappa-button:hover {
     background-color: darken($primary-color, 20%) !important;
-   
 }
 
+// Stile del contenitore principale dell'applicazione
 #app {
     display: flex;
     flex-direction: column;
@@ -331,5 +394,5 @@ select:focus {
 }
 
 main {
-    flex: 1; 
+    flex: 1; // L'area principale occupa lo spazio disponibile
 }

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="video-background">
+    <video autoplay loop muted playsinline>
+        <source src="{{ asset('videos/loop5.mp4') }}" type="video/mp4">
+    </video>
+</div> 
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">

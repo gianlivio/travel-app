@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const giornateContainer = document.getElementById('giornate-container');
     const addGiornataButton = document.getElementById('add-giornata-button');
     const dettagliTextarea = document.getElementById('dettagli');
-    const maxCharCount = 500;
+    const maxCharCount = 2000; // Aumento del limite di caratteri a 2000
     let charCountDisplay;
     let removedTappe = [];
     let removedGiornate = [];
@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-           // rimuovere le giornate
-           document.querySelectorAll('.remove-giornata-button').forEach(button => {
+        // Rimuovere le giornate
+        document.querySelectorAll('.remove-giornata-button').forEach(button => {
             button.addEventListener('click', function() {
                 const giornataElement = button.closest('.giornata');
                 const giornataIdField = giornataElement.querySelector('input[name$="[id]"]');
